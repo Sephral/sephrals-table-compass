@@ -335,7 +335,9 @@
       "Single": "Only one player is online, so votes cannot be anonymous right now.",
       "Problems": "Self test: {problems} of {checks} checks failed.",
       "Passed": "Self test passed: {checks} checks.",
-      "NewVersions": "Table Compass was verified with an earlier version: {versions}. Run the self test in the module settings."
-    }
+      "NewVersions": "Table Compass was verified with an earlier version: {versions}. Run the self test in the module settings.",
+      "Version": "Foundry {current} (verified {tested})"
+    },
+    "gear": "Settings"
   }
 }

@@ -6,7 +6,7 @@
 const {ApplicationV2, HandlebarsApplicationMixin} = foundry.applications.api;
 
 import {ICONS, STEPS} from "./catalog.mjs";
-import {TEMPLATES, isShown, onlinePlayers, setting, t} from "./config.mjs";
+import {TEMPLATES, addSettingsGear, isShown, onlinePlayers, setting, t} from "./config.mjs";
 import {openFeedback} from "./feedback-app.mjs";
 import {
   axisActive, myState, showXCard, signalActive, toggleSignal, toggleWish, vote, wishActive, xcardWaiting
@@ -81,6 +81,13 @@ export class PlayerCompass extends HandlebarsApplicationMixin(ApplicationV2) {
     context.warning = !game.users.activeGM ? t("STC.Player.noGM") : (players <= 1 ? t("STC.Player.single") : "");
     context.toast = this.toast ? t(this.toast) : "";
     return context;
+  }
+
+  /** @override */
+  async _renderFrame(options) {
+    const frame = await super._renderFrame(options);
+    addSettingsGear(frame);
+    return frame;
   }
 
   /** @override */

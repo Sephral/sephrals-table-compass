@@ -335,7 +335,9 @@
       "Single": "Nur ein Spieler ist online, Stimmen können gerade nicht anonym sein.",
       "Problems": "Selbsttest: {problems} von {checks} Prüfungen fehlgeschlagen.",
       "Passed": "Selbsttest bestanden: {checks} Prüfungen.",
-      "NewVersions": "Der Tischkompass wurde mit einer älteren Version geprüft: {versions}. Starte den Selbsttest in den Moduleinstellungen."
-    }
+      "NewVersions": "Der Tischkompass wurde mit einer älteren Version geprüft: {versions}. Starte den Selbsttest in den Moduleinstellungen.",
+      "Version": "Foundry {current} (geprüft {tested})"
+    },
+    "gear": "Einstellungen"
   }
 }

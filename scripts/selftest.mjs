@@ -48,7 +48,8 @@ export async function runSelfTest({report=true}={}) {
   if ( problems.length ) ui.notifications.warn(summary, {permanent: true});
   else ui.notifications.info(summary);
   if ( report ) {
-    let content = `<h3>${esc(t("STC.SELFTEST.Title"))}</h3><p>${esc(summary)}</p>`;
+    const versions = t("STC.SELFTEST.Version", {current: game.version, tested: TESTED_VERSIONS.core});
+    let content = `<h3>${esc(t("STC.SELFTEST.Title"))}</h3><p>${esc(summary)}</p><p><small>${esc(versions)}</small></p>`;
     if ( problems.length ) content += `<ul>${problems.map(p => `<li>${esc(p)}</li>`).join("")}</ul>`;
     await ChatMessage.implementation.create({content, whisper: [game.user.id], speaker: {alias: game.modules.get(MODULE_ID).title}});
   }

@@ -7,7 +7,7 @@
 const {ApplicationV2, HandlebarsApplicationMixin} = foundry.applications.api;
 
 import {ICONS} from "./catalog.mjs";
-import {MODULE_ID, TEMPLATES, decimal, isShown, locale, setting, t} from "./config.mjs";
+import {MODULE_ID, TEMPLATES, addSettingsGear, decimal, isShown, locale, setting, t} from "./config.mjs";
 import {compassCorners, sparkline} from "./rules.mjs";
 import {publicState} from "./state.mjs";
 import {
@@ -36,7 +36,7 @@ export class CompassWindow extends HandlebarsApplicationMixin(ApplicationV2) {
     window: {title: "STC.Title", icon: "fa-solid fa-compass", resizable: false, minimizable: false, controls: [
       {action: "newSession", icon: "fa-solid fa-rotate", label: "STC.GM.newSession"},
       {action: "lastResults", icon: "fa-solid fa-square-poll-vertical", label: "STC.GM.lastResults"},
-      {action: "openSettings", icon: "fa-solid fa-gear", label: "STC.GM.settings"}
+      {action: "openSettings", icon: "fa-solid fa-sliders", label: "STC.GM.settings"}
     ]},
     position: {width: 320, height: "auto"},
     actions: {
@@ -78,6 +78,7 @@ export class CompassWindow extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @override */
   async _renderFrame(options) {
     const frame = await super._renderFrame(options);
+    addSettingsGear(frame);
     const close = frame.querySelector(".window-header [data-action='close']");
     if ( close ) {
       const button = document.createElement("button");

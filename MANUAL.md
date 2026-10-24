@@ -53,7 +53,7 @@ Closing the round shows the result: the stars with their distribution, the pace,
 
 ## Settings
 
-All options are in *Game Settings → Configure Settings → Sephral’s Table Compass*:
+All options are in *Game Settings → Configure Settings → Sephral’s Table Compass*. The gear in the title bar of the compass opens them directly, for players too:
 
 | Setting | What it does |
 | --- | --- |

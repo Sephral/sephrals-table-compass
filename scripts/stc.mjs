@@ -12,6 +12,7 @@ import {noticeNewVersions, runSelfTest} from "./selftest.mjs";
 import {changeLanguage, registerSettings} from "./settings.mjs";
 import {choices, publicState} from "./state.mjs";
 import * as tracker from "./tracker.mjs";
+import {registerUsage} from "./usage.mjs";
 
 /** The tool in the token controls. */
 const TOOL = "stc-compass";
@@ -32,6 +33,12 @@ Hooks.once("init", () => {
       if ( game.user.isActiveGM ) tracker.refresh();
       refreshPlayerCompass();
     }
+  });
+  // Only what the GM starts or opens counts, never the X card, signals, votes, wishes or ratings of the players
+  registerUsage(MODULE_ID, {
+    features: ["sceneCheck", "feedbackRound", "newSession", "tableChoices", "pastResults", "compassPanel",
+      "historyPanel"],
+    settings: ["gmView", "theme", "updateDelay"]
   });
   game.keybindings.register(MODULE_ID, "open", {
     name: "STC.Keybinding.open",

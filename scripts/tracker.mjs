@@ -10,6 +10,7 @@ import {MODULE_ID, POLL_SECONDS, onlinePlayers, setting, t} from "./config.mjs";
 import {sendToUsers} from "./net.mjs";
 import {activeEntries, batchDelay, cleanMessage, summarizeAxis, summarizeFeedback, summarizePoll} from "./rules.mjs";
 import {choices, publicState, updatePublic} from "./state.mjs";
+import {countFeature} from "./usage.mjs";
 
 /** A new session starts when the compass was quiet this long. */
 const SESSION_GAP = 6 * 3600 * 1000;
@@ -331,6 +332,7 @@ export async function newSession({quiet=false}={}) {
   await game.settings.set(MODULE_ID, "history", {session: publicState().session.id, points: [], marks: []});
   snapshot = null;
   refresh();
+  if ( !quiet ) countFeature(MODULE_ID, "newSession");
   if ( !quiet ) ui.notifications.info(t("STC.Notice.newSession"));
 }
 
@@ -403,6 +405,7 @@ export async function startPoll() {
   live.poll = {id, endsAt, votes: new Map()};
   await updatePublic({poll: {id, seconds: POLL_SECONDS}});
   setTimeout(() => endPoll(id), (POLL_SECONDS * 1000) + 2500);
+  countFeature(MODULE_ID, "sceneCheck");
   refresh();
 }
 
@@ -426,6 +429,7 @@ export async function startRound() {
   const id = foundry.utils.randomID();
   live.round = {id, started: Date.now(), answers: new Map()};
   await updatePublic({round: {id, count: 0}});
+  countFeature(MODULE_ID, "feedbackRound");
   refresh();
 }
 

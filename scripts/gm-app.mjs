@@ -13,6 +13,10 @@ import {publicState} from "./state.mjs";
 import {
   acknowledgeXCard, clearSignal, closeRound, fulfillWish, history, newSession, startPoll, startRound, toggleSoon, view
 } from "./tracker.mjs";
+import {countFeature, markUsed} from "./usage.mjs";
+
+/** Usage counters of the middle panel views; the scales are the default view and count nothing. */
+const PANEL_FEATURES = {compass: "compassPanel", history: "historyPanel"};
 
 /** Colors of the history lines, in the order of the scales. */
 const LINE_COLORS = ["#b5512d", "#8c3e47", "#2d7753", "#9a5b13", "#4a6a8a", "#6b4f8a", "#3d7a7a", "#a0602a", "#5a5a5a"];
@@ -229,6 +233,8 @@ export class CompassWindow extends HandlebarsApplicationMixin(ApplicationV2) {
   /* -------------------------------------------- */
 
   static #onView(event, target) {
+    const feature = PANEL_FEATURES[target.dataset.view];
+    if ( feature && (target.dataset.view !== this.panel) ) countFeature(MODULE_ID, feature);
     this.panel = target.dataset.view;
     this.render();
   }
@@ -290,6 +296,7 @@ export class CompassWindow extends HandlebarsApplicationMixin(ApplicationV2) {
 
   static async #onLastResults() {
     const {openResults} = await import("./results-app.mjs");
+    countFeature(MODULE_ID, "pastResults");
     openResults();
   }
 
@@ -313,6 +320,7 @@ export async function openCompass() {
   const app = foundry.applications.instances.get(CompassWindow.DEFAULT_OPTIONS.id) ?? new CompassWindow();
   await app.render({force: true});
   app.bringToFront?.();
+  markUsed(MODULE_ID);
   return app;
 }
 

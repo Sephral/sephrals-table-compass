@@ -7,6 +7,7 @@ const {ApplicationV2, HandlebarsApplicationMixin} = foundry.applications.api;
 import {AXES, ICONS, SIGNALS, WISHES} from "./catalog.mjs";
 import {MODULE_ID, TEMPLATES, t} from "./config.mjs";
 import {choices} from "./state.mjs";
+import {countFeature} from "./usage.mjs";
 
 /**
  * The checked ids of one group of the form, in catalog order.
@@ -68,6 +69,7 @@ export class TableChoices extends HandlebarsApplicationMixin(ApplicationV2) {
       signals: checkedIds(data.signals, SIGNALS),
       wishes: checkedIds(data.wishes, WISHES)
     });
+    countFeature(MODULE_ID, "tableChoices");
   }
 }
 

@@ -1,0 +1,341 @@
+{
+  "STC": {
+    "Title": "Tischkompass",
+    "LANGUAGE": {
+      "default": "Wie Foundry",
+      "de": "Deutsch",
+      "en": "English"
+    },
+    "SETTINGS": {
+      "uiLanguage": {
+        "name": "Modulsprache",
+        "hint": "Sprache des Tischkompass für dich. Wie Foundry nutzt die Sprache von Foundry."
+      },
+      "theme": {
+        "name": "Aussehen",
+        "hint": "Warme Papierfarben oder die dunklen Farben von Foundry, für dich.",
+        "signature": "Signature",
+        "foundry": "Foundry"
+      },
+      "minVotes": {
+        "name": "Stimmen, bevor etwas erscheint",
+        "hint": "Eine Achse, ein Szenen-Check und die Feedbackrunde zeigen Ergebnisse erst ab so vielen Antworten, damit sich eine einzelne Stimme nicht erkennen lässt. 1 zeigt alles sofort."
+      },
+      "updateDelay": {
+        "name": "Verzögerung der SL-Ansicht",
+        "hint": "Neue Stimmen erreichen das Fenster der SL nach einer zufälligen Wartezeit, damit sich ein Klick nicht dem Spieler zuordnen lässt, der sich gerade bewegt hat. Die X-Karte kommt immer sofort.",
+        "off": "Keine Verzögerung",
+        "short": "Kurz (15 bis 45 Sekunden)",
+        "normal": "Länger (30 bis 90 Sekunden)"
+      },
+      "fadeMinutes": {
+        "name": "Stimmen verblassen nach (Minuten)",
+        "hint": "Eine Stimme auf einer Achse zählt so lange, damit das Bild zur aktuellen Szene gehört. Spieler können sie jederzeit erneuern."
+      },
+      "signalMinutes": {
+        "name": "Signale bleiben (Minuten)",
+        "hint": "Wie lange ein Signal wie eine Pausenbitte bleibt, wenn die SL es nicht vorher abhakt."
+      },
+      "freeText": {
+        "name": "Freitext in der Feedbackrunde",
+        "hint": "Spieler dürfen Rose, Dorn und Knospe schreiben. Freitext kann den Schreiber am Stil verraten, der Bogen weist darauf hin."
+      },
+      "xcardSound": {
+        "name": "Ton für die X-Karte",
+        "hint": "Der Client der SL spielt einen kurzen Ton, wenn ein Spieler die X-Karte zeigt."
+      }
+    },
+    "Keybinding": {
+      "open": "Tischkompass öffnen",
+      "openHint": "Die SL-Ansicht für eine SL, das Spielerfenster für Spieler."
+    },
+    "Axis": {
+      "pace": {
+        "name": "Tempo",
+        "low": "zu langsam",
+        "high": "zu schnell",
+        "more": "schneller"
+      },
+      "tension": {
+        "name": "Spannung",
+        "low": "zu harmlos",
+        "high": "zu heftig",
+        "more": "heftiger"
+      },
+      "roleplay": {
+        "name": "Rollenspiel",
+        "low": "zu wenig",
+        "high": "zu viel",
+        "more": "mehr RP"
+      },
+      "combat": {
+        "name": "Kampf",
+        "low": "zu wenig",
+        "high": "zu viel",
+        "more": "mehr Kampf"
+      },
+      "challenge": {
+        "name": "Herausforderung",
+        "low": "zu leicht",
+        "high": "zu schwer",
+        "more": "schwerer"
+      },
+      "exploration": {
+        "name": "Erkundung",
+        "low": "zu wenig",
+        "high": "zu viel",
+        "more": "mehr Erkundung"
+      },
+      "description": {
+        "name": "Beschreibungen",
+        "low": "zu knapp",
+        "high": "zu ausführlich",
+        "more": "ausführlicher"
+      },
+      "humor": {
+        "name": "Humor",
+        "low": "zu ernst",
+        "high": "zu albern",
+        "more": "mehr Humor"
+      },
+      "rules": {
+        "name": "Regeln am Tisch",
+        "low": "zu locker",
+        "high": "zu viel Nachschlagen",
+        "more": "genauere Regeln"
+      }
+    },
+    "Signal": {
+      "pause": {
+        "name": "Pause bitte"
+      },
+      "lost": {
+        "name": "Faden verloren"
+      },
+      "spotlight": {
+        "name": "Zu wenig dran"
+      },
+      "more": {
+        "name": "Mehr davon!"
+      },
+      "tech": {
+        "name": "Technik hakt"
+      }
+    },
+    "Wish": {
+      "combat": "Kampf",
+      "puzzle": "Rätsel",
+      "exploration": "Erkunden",
+      "character": "Charaktermoment",
+      "npc": "Gespräch mit NSC",
+      "trade": "Stadt und Handel",
+      "campfire": "Lagerfeuer",
+      "loot": "Beute",
+      "journey": "Reise",
+      "drama": "Drama",
+      "humor": "Humor",
+      "intrigue": "Intrige",
+      "heist": "Coup",
+      "romance": "Romanze"
+    },
+    "Topic": {
+      "combat": "Kampf",
+      "roleplay": "Rollenspiel",
+      "exploration": "Erkundung",
+      "puzzle": "Rätsel",
+      "story": "Geschichte",
+      "humor": "Humor",
+      "character": "Charaktermomente"
+    },
+    "XCard": {
+      "name": "X-Karte",
+      "gmText": "Thema überspringen",
+      "ack": "Gesehen",
+      "alert": "X-Karte: Ein Spieler möchte das aktuelle Thema überspringen.",
+      "button": "X-Karte: Thema überspringen",
+      "waiting": "X-Karte gezeigt, wartet auf die SL",
+      "sent": "Die SL sieht es sofort. Niemand erfährt, von wem.",
+      "acknowledged": "Die SL hat die X-Karte gesehen."
+    },
+    "Notice": {
+      "newSession": "Eine neue Sitzung des Tischkompass hat begonnen."
+    },
+    "GM": {
+      "newSession": "Neue Sitzung",
+      "newSessionConfirm": "Eine neue Sitzung beginnen? Stimmen, Signale, Wünsche und der Verlauf fangen neu an. Die Ergebnisse früherer Feedbackrunden bleiben.",
+      "lastResults": "Feedbackrunden",
+      "settings": "Achsen, Signale und Wünsche",
+      "collapse": "Zur Kugel einklappen",
+      "open": "Tischkompass öffnen",
+      "signalTitle": "{signal}: {count}. Klick hakt es für alle ab.",
+      "view": {
+        "scale": "Waage",
+        "compass": "Kompassrose",
+        "history": "Verlauf"
+      },
+      "wishTitle": "{wish}: {count}. Klick zeigt die Aktionen.",
+      "wishSoonTitle": "{wish}: {count}, als „kommt bald“ angekündigt.",
+      "pollResult": "Szenen-Check: {avg} von 5 aus {count} Antworten",
+      "pollFew": "Szenen-Check: zu wenige Antworten ({count}) für ein Ergebnis",
+      "axisTitle": "{axis}: {count} Stimmen, von {low} bis {high}",
+      "axisFew": "{axis}: erscheint ab {min} Stimmen",
+      "status": {
+        "fine": "passt",
+        "split": "gespalten",
+        "few": "wenig Stimmen"
+      },
+      "mark": {
+        "xcard": "X-Karte",
+        "poll": "Szenen-Check",
+        "wish": "Wunsch erfüllt",
+        "round": "Feedbackrunde"
+      },
+      "nobody": "Kein Spieler ist online.",
+      "single": "Nur ein Spieler ist online: seine Stimmen können nicht anonym sein.",
+      "empty": "Noch keine Stimmen. Spieler öffnen den Kompass in der Token-Steuerung.",
+      "historyEmpty": "Der Verlauf füllt sich während der Sitzung.",
+      "now": "jetzt",
+      "wishes": "Wünsche",
+      "noWishes": "noch keine",
+      "wishSoon": "Kommt bald",
+      "wishSoonUndo": "Zurücknehmen",
+      "wishDone": "Erfüllt",
+      "pollRunning": "Szenen-Check: {seconds} s, {count} Antworten",
+      "startPoll": "Szenen-Check",
+      "startRound": "Feedbackrunde",
+      "closeRound": "Runde schließen ({count})",
+      "online": "{count} Spieler online"
+    },
+    "Player": {
+      "tab": {
+        "now": "Jetzt",
+        "mood": "Stimmung",
+        "wish": "Lust auf"
+      },
+      "anonymous": "Anonym: Die SL sieht, wie der Tisch denkt, nie wer was gesagt hat.",
+      "axisTitle": "{axis}: von {low} bis {high}",
+      "wishSoon": "{wish}: die SL hat es als „kommt bald“ angekündigt",
+      "noGM": "Keine SL ist online. Was du sagst, geht los, sobald eine SL da ist.",
+      "single": "Du bist der einzige Spieler online, die SL kann deine Stimmen also zuordnen.",
+      "roundOpen": "Feedbackrunde: Feedback geben",
+      "roundChange": "Feedbackrunde: Antworten ändern",
+      "queued": "Keine SL ist online. Es geht los, sobald eine SL da ist.",
+      "sent": "An die SL geschickt, ohne deinen Namen.",
+      "withdrawn": "Zurückgenommen.",
+      "wishSent": "Wunsch an die SL geschickt, ohne deinen Namen.",
+      "wishWithdrawn": "Wunsch zurückgenommen.",
+      "fine": "passt",
+      "much": "viel {end}",
+      "bit": "etwas {end}",
+      "fade": "Mitte heißt passt. Deine Stimme verblasst nach {minutes} Minuten.",
+      "undoHint": "Alles lässt sich zurücknehmen."
+    },
+    "Poll": {
+      "title": "Szenen-Check",
+      "question": "Wie war die Szene?",
+      "left": "noch {seconds} s",
+      "face": {
+        "1": "gar nicht meins",
+        "2": "eher nicht",
+        "3": "okay",
+        "4": "gut",
+        "5": "großartig"
+      },
+      "hint": "Die SL sieht erst nach Ablauf der Zeit, wie die Szene ankam, nie wer wie geantwortet hat.",
+      "thanks": "Danke! Du kannst bis zum Ablauf umentscheiden."
+    },
+    "Feedback": {
+      "title": "Feedbackrunde",
+      "anonymous": "Anonym. Die SL bekommt eine Zusammenfassung aller Antworten, nie deinen Namen. Ehrlich sein hilft der ganzen Runde.",
+      "evening": "Der Abend insgesamt",
+      "starLabel": "{n} von 5 Sternen",
+      "tempoQuestion": "Das Tempo war",
+      "tempo": {
+        "0": "zu langsam",
+        "1": "genau richtig",
+        "2": "zu schnell"
+      },
+      "topics": "Highlights und nächstes Mal",
+      "col": {
+        "highlights": "Highlight",
+        "more": "Mehr",
+        "less": "Weniger"
+      },
+      "ownWords": "In eigenen Worten (freiwillig)",
+      "rose": "Rose: Was war richtig gut?",
+      "thorn": "Dorn: Was hat dich gestört?",
+      "bud": "Knospe: Worauf freust du dich?",
+      "styleHint": "Freitext kann dich an deinem Schreibstil verraten. Lass die Felder leer, wenn du ganz sicher anonym bleiben willst.",
+      "send": "Anonym abschicken",
+      "skip": "Überspringen",
+      "thanks": "Danke!",
+      "thanksText": "Dein Feedback ist bei der SL angekommen, ohne deinen Namen. Bis die SL die Runde schließt, kannst du es noch ändern.",
+      "edit": "Antworten ändern",
+      "closed": "Die Feedbackrunde ist beendet."
+    },
+    "Results": {
+      "title": "Feedbackrunden",
+      "round": "Feedbackrunde vom {date}",
+      "pick": "Runde wählen",
+      "answers": "{count} Antworten, {online} Spieler online",
+      "few": "Nur {count} Antworten. Ergebnisse erscheinen ab {min} Antworten, damit niemand erkennbar ist.",
+      "evening": "Der Abend",
+      "starsLine": "{avg} von 5 Sternen",
+      "tempoTitle": "Tempo",
+      "tempo": {
+        "slow": "zu langsam",
+        "fine": "genau richtig",
+        "fast": "zu schnell"
+      },
+      "highlights": "Highlights",
+      "nextTime": "Nächstes Mal",
+      "less": "weniger",
+      "more": "mehr",
+      "moreLess": "{more} mehr, {less} weniger",
+      "ownWords": "In eigenen Worten",
+      "shuffled": "Reihenfolge gemischt",
+      "kind": {
+        "rose": "Rose",
+        "thorn": "Dorn",
+        "bud": "Knospe"
+      },
+      "wishes": "Wünsche des Abends",
+      "wishFulfilled": "{wish} erfüllt",
+      "wishSoon": "{wish} kommt bald",
+      "wishOpen": "{wish} offen ({count})",
+      "none": "nichts",
+      "journal": "Ins Journal (nur SL)",
+      "saved": "Im Journaleintrag Tischkompass gespeichert, nur SLs können ihn sehen.",
+      "noneYet": "Noch keine Feedbackrunde. Starte eine am Ende der Sitzung im Fenster der SL."
+    },
+    "Journal": {
+      "name": "Tischkompass",
+      "page": "Feedbackrunde {date}"
+    },
+    "Choices": {
+      "title": "Achsen, Signale und Wünsche",
+      "menuLabel": "Auswählen",
+      "menuHint": "Was das Spielerfenster an diesem Tisch anbietet.",
+      "axes": "Achsen",
+      "axesHint": "Jede Achse hat passt in der Mitte und zwei Enden.",
+      "signals": "Signale",
+      "signalsHint": "Schnelle Signale für den Moment. Die X-Karte ist immer da.",
+      "wishes": "Wünsche",
+      "save": "Speichern"
+    },
+    "SELFTEST": {
+      "Title": "Tischkompass Selbsttest",
+      "Run": "Selbsttest starten",
+      "Hint": "Prüft den Socket, die SL, den Speicher und die Texte des Moduls.",
+      "Socket": "Der Socket des Moduls fehlt.",
+      "NoGM": "Keine SL ist aktiv, Stimmen können nicht gesammelt werden.",
+      "Storage": "Der Speicher des Moduls ist nicht registriert.",
+      "Texts": "Fehlende Texte: {keys}",
+      "Vote": "Eine Teststimme hat die Prüfung nicht bestanden.",
+      "Single": "Nur ein Spieler ist online, Stimmen können gerade nicht anonym sein.",
+      "Problems": "Selbsttest: {problems} von {checks} Prüfungen fehlgeschlagen.",
+      "Passed": "Selbsttest bestanden: {checks} Prüfungen.",
+      "NewVersions": "Der Tischkompass wurde mit einer älteren Version geprüft: {versions}. Starte den Selbsttest in den Moduleinstellungen."
+    }
+  }
+}

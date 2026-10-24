@@ -1,0 +1,62 @@
+<div class="stc-body">
+  {{#if sent}}
+  <div class="stc-thanks">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{icons.check}}"></path></svg>
+    <p class="stc-strong">{{localize "STC.Feedback.thanks"}}</p>
+    <p>{{localize "STC.Feedback.thanksText"}}</p>
+    <button type="button" data-action="edit">{{localize "STC.Feedback.edit"}}</button>
+  </div>
+  {{else}}
+  <p class="stc-anon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{icons.lock}}"></path></svg>{{localize "STC.Feedback.anonymous"}}</p>
+
+  <section class="stc-card">
+    <div class="stc-row-between">
+      <h3>{{localize "STC.Feedback.evening"}}</h3>
+      <div class="stc-stars">
+        {{#each stars}}
+        <button type="button" class="stc-star {{#if on}}on{{/if}}" data-action="star" data-n="{{n}}" aria-label="{{label}}"
+                aria-pressed="{{#if on}}true{{else}}false{{/if}}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{../icons.star}}"></path></svg></button>
+        {{/each}}
+      </div>
+    </div>
+    <h3>{{localize "STC.Feedback.tempoQuestion"}}</h3>
+    <div class="stc-switch stc-wide" role="group">
+      {{#each tempo}}
+      <button type="button" class="{{#if on}}active{{/if}}" data-action="tempo" data-v="{{v}}" aria-pressed="{{#if on}}true{{else}}false{{/if}}">{{label}}</button>
+      {{/each}}
+    </div>
+  </section>
+
+  <section class="stc-card">
+    <h3>{{localize "STC.Feedback.topics"}}</h3>
+    <div class="stc-matrix" role="group">
+      <span></span>
+      <span class="stc-matrix-head">{{localize "STC.Feedback.col.highlights"}}</span>
+      <span class="stc-matrix-head">{{localize "STC.Feedback.col.more"}}</span>
+      <span class="stc-matrix-head">{{localize "STC.Feedback.col.less"}}</span>
+      {{#each topics}}
+      <span class="stc-matrix-label">{{label}}</span>
+      {{#each cells}}
+      <button type="button" class="stc-cell stc-cell-{{group}} {{#if on}}on{{/if}}" data-action="topic" data-group="{{group}}"
+              data-id="{{../id}}" aria-label="{{aria}}" data-tooltip="{{aria}}" aria-pressed="{{#if on}}true{{else}}false{{/if}}">{{mark}}</button>
+      {{/each}}
+      {{/each}}
+    </div>
+  </section>
+
+  {{#if freeText}}
+  <section class="stc-card">
+    <h3>{{localize "STC.Feedback.ownWords"}}</h3>
+    {{#each texts}}
+    <textarea class="stc-text" rows="1" maxlength="500" data-kind="{{kind}}" placeholder="{{label}}" aria-label="{{label}}">{{value}}</textarea>
+    {{/each}}
+    <p class="stc-hint">{{localize "STC.Feedback.styleHint"}}</p>
+  </section>
+  {{/if}}
+
+  <div class="stc-footer">
+    <button type="button" class="stc-primary" data-action="send">{{localize "STC.Feedback.send"}}</button>
+    <button type="button" data-action="skip">{{localize "STC.Feedback.skip"}}</button>
+  </div>
+  {{/if}}
+</div>

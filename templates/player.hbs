@@ -1,0 +1,66 @@
+<div class="stc-body">
+  <p class="stc-anon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{icons.lock}}"></path></svg>{{localize "STC.Player.anonymous"}}</p>
+  {{#if warning}}<p class="stc-note stc-warn">{{warning}}</p>{{/if}}
+  {{#if round}}
+  <button type="button" class="stc-round-link" data-action="openRound">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{icons.feedback}}"></path></svg><span>{{round.label}}</span>
+  </button>
+  {{/if}}
+
+  <div class="stc-tabs" role="tablist">
+    {{#each tabs}}
+    <button type="button" role="tab" class="{{#if active}}active{{/if}}" data-action="pickTab" data-tab="{{id}}"
+            aria-selected="{{#if active}}true{{else}}false{{/if}}">{{label}}</button>
+    {{/each}}
+  </div>
+
+  <div class="stc-tab-body">
+    {{#if tab.now}}
+    <div class="stc-signal-grid">
+      {{#each signals}}
+      <button type="button" class="stc-choice {{#if on}}on{{/if}}" data-action="signal" data-id="{{id}}"
+              aria-pressed="{{#if on}}true{{else}}false{{/if}}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{icon}}"></path></svg><span>{{label}}</span>
+      </button>
+      {{/each}}
+    </div>
+    <button type="button" class="stc-xcard-button {{#if xcard.waiting}}waiting{{/if}}" data-action="xcard">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{icons.xcard}}"></path></svg><span>{{xcard.label}}</span>
+    </button>
+    {{/if}}
+
+    {{#if tab.mood}}
+    <div class="stc-vote-list">
+      {{#each axes}}
+      <div class="stc-vote" data-tooltip="{{title}}">
+        <span class="stc-axis-name">{{label}}</span>
+        <span class="stc-end">−</span>
+        <div class="stc-steps">
+          {{#each steps}}
+          <button type="button" class="stc-step stc-step-{{size}} {{#if on}}on{{/if}}" data-action="step"
+                  data-axis="{{../id}}" data-value="{{value}}" aria-label="{{aria}}" data-tooltip="{{aria}}"
+                  aria-pressed="{{#if on}}true{{else}}false{{/if}}"></button>
+          {{/each}}
+        </div>
+        <span class="stc-end">+</span>
+      </div>
+      {{/each}}
+    </div>
+    <p class="stc-hint">{{localize "STC.Player.fade" minutes=fade}}</p>
+    {{/if}}
+
+    {{#if tab.wish}}
+    <div class="stc-wish-grid">
+      {{#each wishes}}
+      <button type="button" class="stc-tile {{#if on}}on{{/if}}" data-action="wish" data-id="{{id}}" data-tooltip="{{title}}"
+              aria-pressed="{{#if on}}true{{else}}false{{/if}}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{icon}}"></path></svg><span>{{label}}</span>
+        {{#if soon}}<i class="stc-soon" aria-label="{{title}}"></i>{{/if}}
+      </button>
+      {{/each}}
+    </div>
+    {{/if}}
+  </div>
+
+  <p class="stc-toast {{#if toast}}shown{{/if}}" role="status">{{#if toast}}{{toast}}{{else}}{{localize "STC.Player.undoHint"}}{{/if}}</p>
+</div>

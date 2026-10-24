@@ -1,0 +1,78 @@
+<div class="stc-body">
+  {{#if result}}
+  <div class="stc-results-head">
+    <span class="stc-grow stc-strong">{{localize "STC.Results.round" date=result.date}}</span>
+    <span class="stc-pill">{{localize "STC.Results.answers" count=result.count online=result.online}}</span>
+    {{#if choices.[1]}}
+    <select name="result" aria-label="{{localize "STC.Results.pick"}}">
+      {{#each choices}}<option value="{{id}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}
+    </select>
+    {{/if}}
+  </div>
+
+  {{#if result.shown}}
+  <div class="stc-results-grid">
+    <div class="stc-col">
+      {{#if result.stars}}
+      <section class="stc-card">
+        <h3>{{localize "STC.Results.evening"}}</h3>
+        <div class="stc-big">{{result.stars.avg}}<small>/ 5</small></div>
+        {{#each result.stars.dist}}
+        <div class="stc-bar-row"><span class="stc-bar-label">{{n}}★</span><span class="stc-bar"><i style="width: {{width}}%"></i></span><b>{{count}}</b></div>
+        {{/each}}
+      </section>
+      {{/if}}
+      {{#if result.tempo}}
+      <section class="stc-card">
+        <h3>{{localize "STC.Results.tempoTitle"}}</h3>
+        <div class="stc-stack">{{#each result.tempo}}<i class="stc-tempo-{{k}}" style="width: {{width}}%" data-tooltip="{{label}}">{{count}}</i>{{/each}}</div>
+        <div class="stc-legend">{{#each result.tempo}}<span class="stc-tempo-{{k}}">{{label}}</span>{{/each}}</div>
+      </section>
+      {{/if}}
+    </div>
+
+    <div class="stc-col">
+      <section class="stc-card">
+        <h3>{{localize "STC.Results.highlights"}}</h3>
+        {{#each result.highlights}}
+        <div class="stc-bar-row"><span class="stc-bar-label wide">{{label}}</span><span class="stc-bar"><i style="width: {{width}}%"></i></span><b>{{count}}</b></div>
+        {{else}}<p class="stc-hint">{{localize "STC.Results.none"}}</p>{{/each}}
+      </section>
+      <section class="stc-card">
+        <h3>{{localize "STC.Results.nextTime"}}</h3>
+        {{#if result.nextTime.length}}
+        <div class="stc-diverge-head"><span>{{localize "STC.Results.less"}}</span><span>{{localize "STC.Results.more"}}</span></div>
+        {{#each result.nextTime}}
+        <div class="stc-diverge">
+          <span class="stc-left"><i style="width: {{lessWidth}}%"></i></span>
+          <span class="stc-diverge-label">{{label}}</span>
+          <span class="stc-right"><i style="width: {{moreWidth}}%"></i></span>
+        </div>
+        {{/each}}
+        {{else}}<p class="stc-hint">{{localize "STC.Results.none"}}</p>{{/if}}
+      </section>
+    </div>
+
+    <div class="stc-col">
+      <section class="stc-card">
+        <h3>{{localize "STC.Results.ownWords"}} <small class="stc-muted">{{localize "STC.Results.shuffled"}}</small></h3>
+        {{#each result.texts}}
+        <blockquote class="stc-quote stc-quote-{{kind}}"><b>{{label}}</b>{{text}}</blockquote>
+        {{else}}<p class="stc-hint">{{localize "STC.Results.none"}}</p>{{/each}}
+      </section>
+    </div>
+  </div>
+  {{else}}
+  <p class="stc-note stc-warn">{{result.few}}</p>
+  {{/if}}
+
+  <div class="stc-footer">
+    <div class="stc-grow stc-wish-results">
+      {{#each result.wishes}}<span class="stc-pill stc-wish-{{kind}}">{{label}}</span>{{/each}}
+    </div>
+    <button type="button" class="stc-primary" data-action="journal">{{localize "STC.Results.journal"}}</button>
+  </div>
+  {{else}}
+  <p class="stc-hint">{{localize "STC.Results.noneYet"}}</p>
+  {{/if}}
+</div>

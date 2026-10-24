@@ -1,0 +1,121 @@
+<div class="stc-body">
+  {{#if nobody}}<p class="stc-note">{{localize "STC.GM.nobody"}}</p>{{/if}}
+  {{#if single}}<p class="stc-note stc-warn">{{localize "STC.GM.single"}}</p>{{/if}}
+
+  {{#if xcards}}
+  <div class="stc-xcard" role="alert">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{icons.xcard}}"></path></svg>
+    <span class="stc-grow"><b>{{localize "STC.XCard.name"}}:</b> {{localize "STC.XCard.gmText"}}</span>
+    <button type="button" data-action="ackX">{{localize "STC.XCard.ack"}}</button>
+  </div>
+  {{/if}}
+
+  <div class="stc-toolbar">
+    <div class="stc-signals">
+      {{#each signals}}
+      <button type="button" class="stc-signal" data-signal="{{id}}" data-action="clearSignal" data-id="{{id}}"
+              data-tooltip="{{title}}" aria-label="{{title}}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{icon}}"></path></svg><span>{{count}}</span>
+      </button>
+      {{/each}}
+    </div>
+    <div class="stc-switch" role="group">
+      {{#each panels}}
+      <button type="button" class="{{#if active}}active{{/if}}" data-action="view" data-view="{{id}}"
+              data-tooltip="{{label}}" aria-label="{{label}}" aria-pressed="{{#if active}}true{{else}}false{{/if}}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{icon}}"></path></svg>
+      </button>
+      {{/each}}
+    </div>
+  </div>
+
+  <div class="stc-panel">
+    {{#if panel.scale}}
+    <div class="stc-axes">
+      {{#each axes}}
+      <div class="stc-axis" data-axis="{{id}}" data-tooltip="{{title}}">
+        <span class="stc-axis-name">{{label}}</span>
+        <div class="stc-track">
+          <span class="stc-mid"></span>
+          {{#if shown}}
+          {{#each dots}}<span class="stc-dot" style="left: calc({{left}}% - 3px + {{shift}}px); top: {{top}}px"></span>{{/each}}
+          <span class="stc-marker stc-tone-{{tone}}" style="left: calc({{marker}}% - 6px)"></span>
+          {{/if}}
+        </div>
+        <span class="stc-axis-status stc-tone-{{tone}}">{{#if shown}}{{status}}{{else}}·{{/if}}</span>
+      </div>
+      {{/each}}
+    </div>
+    {{#if empty}}<p class="stc-hint">{{localize "STC.GM.empty"}}</p>{{/if}}
+    {{/if}}
+
+    {{#if panel.compass}}
+    <svg class="stc-compass" viewBox="0 0 282 122" role="img" aria-label="{{localize "STC.GM.view.compass"}}">
+      <circle cx="{{compass.cx}}" cy="{{compass.cy}}" r="{{compass.outer}}" class="stc-ring-outer"></circle>
+      <circle cx="{{compass.cx}}" cy="{{compass.cy}}" r="{{compass.ring}}" class="stc-ring-fine"></circle>
+      {{#each compass.spokes}}
+      <line x1="{{../compass.cx}}" y1="{{../compass.cy}}" x2="{{x2}}" y2="{{y2}}" class="stc-spoke"></line>
+      <text x="{{lx}}" y="{{ly}}" text-anchor="{{anchor}}" class="stc-spoke-label {{#unless shown}}stc-muted{{/unless}}">{{label}}</text>
+      {{/each}}
+      <polygon points="{{compass.polygon}}" class="stc-area"></polygon>
+    </svg>
+    {{/if}}
+
+    {{#if panel.history}}
+    {{#if history.empty}}
+    <p class="stc-hint">{{localize "STC.GM.historyEmpty"}}</p>
+    {{else}}
+    <svg class="stc-history" viewBox="0 0 282 122" role="img" aria-label="{{localize "STC.GM.view.history"}}">
+      <rect x="0" y="47" width="282" height="16" class="stc-fine-band"></rect>
+      {{#each history.marks}}<line x1="{{x}}" y1="2" x2="{{x}}" y2="108" class="stc-mark stc-mark-{{kind}}"><title>{{title}}</title></line>{{/each}}
+      {{#each history.lines}}<polyline points="{{points}}" stroke="{{color}}" class="stc-line"><title>{{label}}</title></polyline>{{/each}}
+      <text x="0" y="120" class="stc-time">{{history.from}}</text>
+      <text x="282" y="120" text-anchor="end" class="stc-time">{{localize "STC.GM.now"}}</text>
+    </svg>
+    {{/if}}
+    {{/if}}
+  </div>
+
+  <div class="stc-wishes">
+    <span class="stc-wishes-label">{{localize "STC.GM.wishes"}}</span>
+    {{#each wishes}}
+    <button type="button" class="stc-wish {{#if soon}}soon{{/if}} {{#if open}}open{{/if}}" data-action="wish" data-id="{{id}}"
+            data-tooltip="{{title}}">{{label}} <b>{{count}}</b></button>
+    {{else}}
+    <span class="stc-muted">{{localize "STC.GM.noWishes"}}</span>
+    {{/each}}
+    {{#if moreWishes}}<span class="stc-muted" data-tooltip="{{moreWishesTitle}}">+{{moreWishes}}</span>{{/if}}
+  </div>
+  {{#if wishMenu}}
+  <div class="stc-wish-menu">
+    <span class="stc-grow">{{wishMenu.label}}</span>
+    <button type="button" data-action="wishSoon" data-id="{{wishMenu.id}}">
+      {{#if wishMenu.soon}}{{localize "STC.GM.wishSoonUndo"}}{{else}}{{localize "STC.GM.wishSoon"}}{{/if}}
+    </button>
+    <button type="button" data-action="wishDone" data-id="{{wishMenu.id}}">{{localize "STC.GM.wishDone"}}</button>
+  </div>
+  {{/if}}
+
+  {{#if lastPoll}}<p class="stc-result {{#unless lastPoll.shown}}stc-muted{{/unless}}">{{lastPoll.text}}</p>{{/if}}
+
+  <div class="stc-footer">
+    {{#if poll}}
+    <span class="stc-running"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{icons.timer}}"></path></svg>
+      {{localize "STC.GM.pollRunning" seconds=poll.seconds count=poll.count}}</span>
+    {{else}}
+    <button type="button" data-action="startPoll" {{#unless isActiveGM}}disabled{{/unless}}>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{icons.timer}}"></path></svg>{{localize "STC.GM.startPoll"}}
+    </button>
+    {{/if}}
+    {{#if round}}
+    <button type="button" class="stc-primary" data-action="closeRound" {{#unless isActiveGM}}disabled{{/unless}}>
+      {{localize "STC.GM.closeRound" count=round.count}}
+    </button>
+    {{else}}
+    <button type="button" class="stc-primary" data-action="startRound" {{#unless isActiveGM}}disabled{{/unless}}>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{icons.feedback}}"></path></svg>{{localize "STC.GM.startRound"}}
+    </button>
+    {{/if}}
+  </div>
+  <p class="stc-online">{{localize "STC.GM.online" count=online}}</p>
+</div>

@@ -1,0 +1,30 @@
+<div class="stc-choices-body">
+  <fieldset>
+    <legend>{{localize "STC.Choices.axes"}}</legend>
+    <p class="hint">{{localize "STC.Choices.axesHint"}}</p>
+    <ul class="stc-choice-list plain">
+      {{#each axes}}
+      <li><label><input type="checkbox" name="axes.{{id}}" {{#if checked}}checked{{/if}}><span>{{label}}</span><small>{{hint}}</small></label></li>
+      {{/each}}
+    </ul>
+  </fieldset>
+  <fieldset>
+    <legend>{{localize "STC.Choices.signals"}}</legend>
+    <p class="hint">{{localize "STC.Choices.signalsHint"}}</p>
+    <ul class="stc-choice-list plain">
+      {{#each signals}}
+      <li><label><input type="checkbox" name="signals.{{id}}" {{#if checked}}checked{{/if}}>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{icon}}"></path></svg><span>{{label}}</span></label></li>
+      {{/each}}
+    </ul>
+  </fieldset>
+  <fieldset>
+    <legend>{{localize "STC.Choices.wishes"}}</legend>
+    <ul class="stc-choice-list stc-columns plain">
+      {{#each wishes}}
+      <li><label><input type="checkbox" name="wishes.{{id}}" {{#if checked}}checked{{/if}}>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{icon}}"></path></svg><span>{{label}}</span></label></li>
+      {{/each}}
+    </ul>
+  </fieldset>
+</div>

@@ -1,0 +1,341 @@
+{
+  "STC": {
+    "Title": "Table Compass",
+    "LANGUAGE": {
+      "default": "Follow Foundry",
+      "de": "Deutsch",
+      "en": "English"
+    },
+    "SETTINGS": {
+      "uiLanguage": {
+        "name": "Module language",
+        "hint": "Language of the Table Compass for you. Follow Foundry uses Foundry's language."
+      },
+      "theme": {
+        "name": "Look",
+        "hint": "Warm paper colors or the dark colors of Foundry, for you.",
+        "signature": "Signature",
+        "foundry": "Foundry"
+      },
+      "minVotes": {
+        "name": "Votes before anything shows",
+        "hint": "A scale, a scene check and the feedback round show results only from this many answers on, so a single vote cannot be told apart. 1 shows everything at once."
+      },
+      "updateDelay": {
+        "name": "Delay of the GM's view",
+        "hint": "New votes reach the GM's window after a random wait, so a click cannot be matched to the player who just moved. The X card always arrives at once.",
+        "off": "No delay",
+        "short": "Short (15 to 45 seconds)",
+        "normal": "Longer (30 to 90 seconds)"
+      },
+      "fadeMinutes": {
+        "name": "Votes fade after (minutes)",
+        "hint": "A vote on a scale counts for this long, so the picture belongs to the current scene. Players can renew it at any time."
+      },
+      "signalMinutes": {
+        "name": "Signals last (minutes)",
+        "hint": "How long a signal such as a break request stays, unless the GM ticks it off earlier."
+      },
+      "freeText": {
+        "name": "Free text in the feedback round",
+        "hint": "Players may write a rose, a thorn and a bud. Free text can reveal its writer by style, the form says so."
+      },
+      "xcardSound": {
+        "name": "Sound for the X card",
+        "hint": "The GM's client plays a short sound when a player shows the X card."
+      }
+    },
+    "Keybinding": {
+      "open": "Open the Table Compass",
+      "openHint": "The GM's view for a GM, the players' window for a player."
+    },
+    "Axis": {
+      "pace": {
+        "name": "Pace",
+        "low": "too slow",
+        "high": "too fast",
+        "more": "faster"
+      },
+      "tension": {
+        "name": "Tension",
+        "low": "too tame",
+        "high": "too intense",
+        "more": "more intense"
+      },
+      "roleplay": {
+        "name": "Roleplay",
+        "low": "too little",
+        "high": "too much",
+        "more": "more roleplay"
+      },
+      "combat": {
+        "name": "Combat",
+        "low": "too little",
+        "high": "too much",
+        "more": "more combat"
+      },
+      "challenge": {
+        "name": "Challenge",
+        "low": "too easy",
+        "high": "too hard",
+        "more": "harder"
+      },
+      "exploration": {
+        "name": "Exploration",
+        "low": "too little",
+        "high": "too much",
+        "more": "more exploring"
+      },
+      "description": {
+        "name": "Descriptions",
+        "low": "too short",
+        "high": "too long",
+        "more": "more detail"
+      },
+      "humor": {
+        "name": "Humor",
+        "low": "too serious",
+        "high": "too silly",
+        "more": "more humor"
+      },
+      "rules": {
+        "name": "Rules at the table",
+        "low": "too loose",
+        "high": "too much lookup",
+        "more": "stricter rules"
+      }
+    },
+    "Signal": {
+      "pause": {
+        "name": "Break, please"
+      },
+      "lost": {
+        "name": "Lost the thread"
+      },
+      "spotlight": {
+        "name": "Not enough spotlight"
+      },
+      "more": {
+        "name": "More of this!"
+      },
+      "tech": {
+        "name": "Tech trouble"
+      }
+    },
+    "Wish": {
+      "combat": "Combat",
+      "puzzle": "Puzzle",
+      "exploration": "Exploring",
+      "character": "Character moment",
+      "npc": "NPC talk",
+      "trade": "Town and trade",
+      "campfire": "Campfire",
+      "loot": "Loot",
+      "journey": "Journey",
+      "drama": "Drama",
+      "humor": "Humor",
+      "intrigue": "Intrigue",
+      "heist": "Heist",
+      "romance": "Romance"
+    },
+    "Topic": {
+      "combat": "Combat",
+      "roleplay": "Roleplay",
+      "exploration": "Exploration",
+      "puzzle": "Puzzles",
+      "story": "Story",
+      "humor": "Humor",
+      "character": "Character moments"
+    },
+    "XCard": {
+      "name": "X card",
+      "gmText": "skip this topic",
+      "ack": "Seen",
+      "alert": "X card: a player would like to skip the current topic.",
+      "button": "X card: skip this topic",
+      "waiting": "X card shown, waiting for the GM",
+      "sent": "The GM sees it at once. Nobody learns who it was.",
+      "acknowledged": "The GM has seen the X card."
+    },
+    "Notice": {
+      "newSession": "A new session of the Table Compass has started."
+    },
+    "GM": {
+      "newSession": "New session",
+      "newSessionConfirm": "Start a new session? Votes, signals, wishes and the history start again. The results of earlier feedback rounds stay.",
+      "lastResults": "Feedback rounds",
+      "settings": "Scales, signals and wishes",
+      "collapse": "Collapse to the orb",
+      "open": "Open the Table Compass",
+      "signalTitle": "{signal}: {count}. Click to tick it off for everyone.",
+      "view": {
+        "scale": "Balance",
+        "compass": "Compass rose",
+        "history": "History"
+      },
+      "wishTitle": "{wish}: {count}. Click for the actions.",
+      "wishSoonTitle": "{wish}: {count}, announced as coming soon.",
+      "pollResult": "Scene check: {avg} of 5 from {count} answers",
+      "pollFew": "Scene check: too few answers ({count}) to show",
+      "axisTitle": "{axis}: {count} votes, from {low} to {high}",
+      "axisFew": "{axis}: shows from {min} votes on",
+      "status": {
+        "fine": "fine",
+        "split": "split",
+        "few": "few votes"
+      },
+      "mark": {
+        "xcard": "X card",
+        "poll": "Scene check",
+        "wish": "Wish fulfilled",
+        "round": "Feedback round"
+      },
+      "nobody": "No player is online.",
+      "single": "Only one player is online: their votes cannot be anonymous.",
+      "empty": "No votes yet. Players open the compass in the token controls.",
+      "historyEmpty": "The history fills in during the session.",
+      "now": "now",
+      "wishes": "Wishes",
+      "noWishes": "none yet",
+      "wishSoon": "Coming soon",
+      "wishSoonUndo": "Take back",
+      "wishDone": "Fulfilled",
+      "pollRunning": "Scene check: {seconds} s, {count} answers",
+      "startPoll": "Scene check",
+      "startRound": "Feedback round",
+      "closeRound": "Close round ({count})",
+      "online": "{count} players online"
+    },
+    "Player": {
+      "tab": {
+        "now": "Now",
+        "mood": "Mood",
+        "wish": "Wishes"
+      },
+      "anonymous": "Anonymous: the GM sees what the table thinks, never who said what.",
+      "axisTitle": "{axis}: from {low} to {high}",
+      "wishSoon": "{wish}: the GM announced it as coming soon",
+      "noGM": "No GM is online. What you say is sent as soon as a GM joins.",
+      "single": "You are the only player online, so the GM can tell your votes apart.",
+      "roundOpen": "Feedback round: give your feedback",
+      "roundChange": "Feedback round: change your answers",
+      "queued": "No GM is online. It goes out as soon as a GM joins.",
+      "sent": "Sent to the GM, without your name.",
+      "withdrawn": "Taken back.",
+      "wishSent": "Wish sent to the GM, without your name.",
+      "wishWithdrawn": "Wish taken back.",
+      "fine": "fine",
+      "much": "much {end}",
+      "bit": "a bit {end}",
+      "fade": "Middle means fine. Your vote fades after {minutes} minutes.",
+      "undoHint": "Everything can be taken back."
+    },
+    "Poll": {
+      "title": "Scene check",
+      "question": "How was the scene?",
+      "left": "{seconds} s left",
+      "face": {
+        "1": "not my thing",
+        "2": "rather not",
+        "3": "okay",
+        "4": "good",
+        "5": "great"
+      },
+      "hint": "The GM sees how the scene went only when the time is up, never who answered what.",
+      "thanks": "Thank you! You can change your answer until the time is up."
+    },
+    "Feedback": {
+      "title": "Feedback round",
+      "anonymous": "Anonymous. The GM gets a summary of all answers, never your name. Being honest helps the whole table.",
+      "evening": "The session as a whole",
+      "starLabel": "{n} of 5 stars",
+      "tempoQuestion": "The pace was",
+      "tempo": {
+        "0": "too slow",
+        "1": "just right",
+        "2": "too fast"
+      },
+      "topics": "Highlights and next time",
+      "col": {
+        "highlights": "Highlight",
+        "more": "More",
+        "less": "Less"
+      },
+      "ownWords": "In your own words (optional)",
+      "rose": "Rose: what was really good?",
+      "thorn": "Thorn: what bothered you?",
+      "bud": "Bud: what are you looking forward to?",
+      "styleHint": "Free text can reveal you by your writing style. Leave it empty to stay fully anonymous.",
+      "send": "Send anonymously",
+      "skip": "Skip",
+      "thanks": "Thank you!",
+      "thanksText": "Your feedback reached the GM without your name. You can change it until the GM closes the round.",
+      "edit": "Change my answers",
+      "closed": "The feedback round is over."
+    },
+    "Results": {
+      "title": "Feedback rounds",
+      "round": "Feedback round of {date}",
+      "pick": "Choose a round",
+      "answers": "{count} answers, {online} players online",
+      "few": "Only {count} answers. Results show from {min} answers on, so nobody can be recognized.",
+      "evening": "The session",
+      "starsLine": "{avg} of 5 stars",
+      "tempoTitle": "Pace",
+      "tempo": {
+        "slow": "too slow",
+        "fine": "just right",
+        "fast": "too fast"
+      },
+      "highlights": "Highlights",
+      "nextTime": "Next time",
+      "less": "less",
+      "more": "more",
+      "moreLess": "{more} more, {less} less",
+      "ownWords": "In their own words",
+      "shuffled": "random order",
+      "kind": {
+        "rose": "Rose",
+        "thorn": "Thorn",
+        "bud": "Bud"
+      },
+      "wishes": "Wishes of the session",
+      "wishFulfilled": "{wish} fulfilled",
+      "wishSoon": "{wish} coming soon",
+      "wishOpen": "{wish} open ({count})",
+      "none": "nothing",
+      "journal": "Save to the journal (GM only)",
+      "saved": "Saved in the journal entry Table Compass, only GMs can see it.",
+      "noneYet": "No feedback round yet. Start one from the GM's window at the end of the session."
+    },
+    "Journal": {
+      "name": "Table Compass",
+      "page": "Feedback round {date}"
+    },
+    "Choices": {
+      "title": "Scales, signals and wishes",
+      "menuLabel": "Choose",
+      "menuHint": "What the players' window offers at this table.",
+      "axes": "Scales",
+      "axesHint": "Each scale has fine in the middle and two ends.",
+      "signals": "Signals",
+      "signalsHint": "Quick signals for the moment. The X card is always there.",
+      "wishes": "Wishes",
+      "save": "Save"
+    },
+    "SELFTEST": {
+      "Title": "Table Compass self test",
+      "Run": "Run self test",
+      "Hint": "Checks the socket, the GM, the storage and the texts of the module.",
+      "Socket": "The module socket is missing.",
+      "NoGM": "No GM is active, votes cannot be collected.",
+      "Storage": "The storage of the module is not registered.",
+      "Texts": "Missing texts: {keys}",
+      "Vote": "A test vote did not pass the checks.",
+      "Single": "Only one player is online, so votes cannot be anonymous right now.",
+      "Problems": "Self test: {problems} of {checks} checks failed.",
+      "Passed": "Self test passed: {checks} checks.",
+      "NewVersions": "Table Compass was verified with an earlier version: {versions}. Run the self test in the module settings."
+    }
+  }
+}

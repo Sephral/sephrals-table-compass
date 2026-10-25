@@ -68,6 +68,20 @@ All options are in *Game Settings → Configure Settings → Sephral’s Table C
 | Scales, signals and wishes | Which ones the players' window offers |
 | Self test | Checks the socket, the GM, the storage and the texts |
 
+## Usage statistics
+
+The module can take part in a small usage report shared by all of Sephral’s modules. Nothing is counted or sent until the GM agrees: shortly after the world starts, the active GM is asked, and the question comes back at every start until there is an answer. The answer counts for all of Sephral’s modules in the world. *Share usage statistics* in the module settings turns the report on or off at any time, and *Manage statistics* below it shows what the report contains right now.
+
+With the GM’s consent only the active GM’s browser counts, and it sends at most one report a day. The question lists everything the report contains, from the Foundry version to a random world ID. For the Table Compass it holds:
+
+* on how many of the last 30 days the module was used
+* how often scene checks and feedback rounds run, a new session starts, the GM saves which scales, signals and wishes are offered, past results are opened and the GM switches between the compass and the history
+* the settings *Look* and *Delay of the GM's view* (only the chosen option)
+* whether the GM uses the window or the orb
+* where errors occur in the module code: file, line and error type, never the error message
+
+No names, chat messages, notes, dice results or other content of the world are sent. Votes, signals, wishes and the X card are never counted, and neither is who gave feedback.
+
 ## Storage
 
 * World setting `public`: what everyone may know (the session, announced and fulfilled wishes, ticked off signals, acknowledged X cards, a running scene check or round). No votes.

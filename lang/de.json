@@ -324,7 +324,7 @@
       "save": "Speichern"
     },
     "SELFTEST": {
-      "Title": "Tischkompass Selbsttest",
+      "Title": "Tischkompass-Selbsttest",
       "Run": "Selbsttest starten",
       "Hint": "Prüft den Socket, die SL, den Speicher und die Texte des Moduls.",
       "Socket": "Der Socket des Moduls fehlt.",

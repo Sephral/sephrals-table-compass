@@ -1,5 +1,7 @@
 import {MODULE_ID, isShown, t} from "./config.mjs";
 import {openChoices} from "./choices-app.mjs";
+import {registerDebug} from "./debug.mjs";
+import {saveDebugFile} from "./debug-file.mjs";
 import {openFeedback, syncFeedback} from "./feedback-app.mjs";
 import {openCompass, refreshCompass, showOrb} from "./gm-app.mjs";
 import {applyModuleLanguage} from "./language.mjs";
@@ -34,6 +36,7 @@ Hooks.once("init", () => {
       refreshPlayerCompass();
     }
   });
+  registerDebug();
   // Only what the GM starts or opens counts, never the X card, signals, votes, wishes or ratings of the players
   registerUsage(MODULE_ID, {
     features: ["sceneCheck", "feedbackRound", "newSession", "tableChoices", "pastResults", "compassPanel",
@@ -79,7 +82,9 @@ Hooks.once("init", () => {
     /** What the active GM holds, without tokens, for tests. */
     debugState: tracker.debugState,
     /** Check the module (GM). */
-    runSelfTest
+    runSelfTest,
+    /** Save the debug file of Sephral's modules (GM): about one chat message, or without an id the latest picture. */
+    saveDebugFile: messageId => saveDebugFile(messageId ?? null, {moduleId: MODULE_ID})
   };
 });
 

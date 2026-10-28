@@ -67,6 +67,13 @@ All options are in *Game Settings → Configure Settings → Sephral’s Table C
 | Sound for the X card | A short sound on the GM's client |
 | Scales, signals and wishes | Which ones the players' window offers |
 | Self test | Checks the socket, the GM, the storage and the texts |
+| Save debug file | One file for bug reports about all of Sephral’s modules (GM). See [Debug file](#debug-file) |
+
+## Debug file
+
+For bug reports, the GM saves one file about all of Sephral’s modules in this world: `Save debug file` in the module settings, or `Save Debug File (Sephral’s Modules)` in the context menu of a chat message. It holds the versions of Foundry, the system and the active modules, the settings of the modules and what they recorded, for Table Compass only counts: the session, a running scene check or feedback round and how many signals, votes and answers the active GM holds. No votes, tokens, wishes or ratings of a player go into it, and the history and results of the feedback rounds stay out. Macros call `game.modules.get("sephrals-table-compass").api.saveDebugFile()`.
+
+The file contains chat text and whispers. Check it before you share it.
 
 ## Usage statistics
 
@@ -105,3 +112,4 @@ No names, chat messages, notes, dice results or other content of the world are s
 | `publicState()`, `myState()` | What everyone may know, what this player said |
 | `openFeedback()` | Opens the form of a running round again (player) |
 | `runSelfTest()` | The self test (GM) |
+| `saveDebugFile()` | The debug file of Sephral’s modules (GM), see [Debug file](#debug-file) |

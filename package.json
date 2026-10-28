@@ -1,10 +1,10 @@
 {
   "name": "sephrals-table-compass",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "type": "module",
   "scripts": {
-    "check": "node --check scripts/catalog.mjs && node --check scripts/choices-app.mjs && node --check scripts/config.mjs && node --check scripts/feedback-app.mjs && node --check scripts/gm-app.mjs && node --check scripts/language.mjs && node --check scripts/net.mjs && node --check scripts/player-app.mjs && node --check scripts/player.mjs && node --check scripts/poll-app.mjs && node --check scripts/results-app.mjs && node --check scripts/rules.mjs && node --check scripts/selftest.mjs && node --check scripts/settings.mjs && node --check scripts/state.mjs && node --check scripts/stc.mjs && node --check scripts/tracker.mjs",
+    "check": "node --check scripts/catalog.mjs && node --check scripts/choices-app.mjs && node --check scripts/config.mjs && node --check scripts/debug.mjs && node --check scripts/debug-file.mjs && node --check scripts/feedback-app.mjs && node --check scripts/gm-app.mjs && node --check scripts/language.mjs && node --check scripts/net.mjs && node --check scripts/player-app.mjs && node --check scripts/player.mjs && node --check scripts/poll-app.mjs && node --check scripts/results-app.mjs && node --check scripts/rules.mjs && node --check scripts/selftest.mjs && node --check scripts/settings.mjs && node --check scripts/state.mjs && node --check scripts/stc.mjs && node --check scripts/tracker.mjs",
     "check:manifest": "node build/validate-manifest.mjs",
     "test": "node --test",
     "test:coverage": "node --test --experimental-test-coverage",

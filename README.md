@@ -2,6 +2,7 @@
 
 **Is the pace too slow? Is the horror too much? Does somebody wish for a good fight? Players often feel it but rarely say it out loud. Table Compass lets them tell the GM anonymously, and the GM sees the mood of the table in one small window.**
 
+[![Foundry VTT package](https://img.shields.io/badge/Foundry%20VTT-Package%20page-fe6a1f?logo=foundryvirtualtabletop&logoColor=white)](https://foundryvtt.com/packages/sephrals-table-compass)
 [![Join Discord](https://img.shields.io/badge/Discord-Join%20the%20community-5865F2?logo=discord&logoColor=white)](https://discord.gg/7BjCgDYaBP)
 [![More modules by Sephral](https://img.shields.io/badge/GitHub-More%20modules%20by%20Sephral-181717?logo=github&logoColor=white)](https://github.com/Sephral)
 
@@ -29,7 +30,7 @@ A GM has to be online to receive the votes. What players say while no GM is ther
 
 ## Install
 
-Use the manifest URL `https://github.com/Sephral/sephrals-table-compass/releases/latest/download/module.json` in Foundry's module installer.
+Search for **Table Compass** in Foundry's module browser or open the [package page](https://foundryvtt.com/packages/sephrals-table-compass).
 
 Foundry VTT 13 and 14 · any game system · English and German
 

@@ -54,11 +54,18 @@
   font-size: 13px;
 }
 
+/* On a short screen the window stops at Foundry's max height and the body scrolls */
 .stc .stc-body {
   display: flex;
   flex-direction: column;
   gap: 7px;
+  min-height: 0;
   padding: 8px 10px 10px;
+  overflow-y: auto;
+}
+
+.stc .stc-body > * {
+  flex-shrink: 0;
 }
 
 .stc .window-content button {

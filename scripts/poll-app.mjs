@@ -22,7 +22,7 @@ export class ScenePoll extends HandlebarsApplicationMixin(ApplicationV2) {
 
   /** @override */
   static PARTS = {
-    body: {template: `${TEMPLATES}/poll.hbs`}
+    body: {template: `${TEMPLATES}/poll.hbs`, scrollable: [""]}
   };
 
   #ticker = null;

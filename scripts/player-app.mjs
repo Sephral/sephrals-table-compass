@@ -32,7 +32,7 @@ export class PlayerCompass extends HandlebarsApplicationMixin(ApplicationV2) {
 
   /** @override */
   static PARTS = {
-    body: {template: `${TEMPLATES}/player.hbs`}
+    body: {template: `${TEMPLATES}/player.hbs`, scrollable: [""]}
   };
 
   /** The open tab: "now", "mood" or "wish". */

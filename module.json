@@ -2,7 +2,7 @@
   "id": "sephrals-table-compass",
   "title": "Sephral’s Table Compass",
   "description": "Anonymous feedback from the players to the GM: pace, tension, roleplay and combat on scales with fine in the middle, quick signals such as a break or the X card, wishes for the next scenes, a scene check and a feedback round at the end of the session. The GM sees it all in one small window.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "compatibility": {
     "minimum": 13,
     "verified": "14.369"

@@ -23,7 +23,7 @@ export class FeedbackResults extends HandlebarsApplicationMixin(ApplicationV2) {
 
   /** @override */
   static PARTS = {
-    body: {template: `${TEMPLATES}/results.hbs`}
+    body: {template: `${TEMPLATES}/results.hbs`, scrollable: [""]}
   };
 
   /** The id of the result shown; the newest by default. */

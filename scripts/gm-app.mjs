@@ -62,7 +62,7 @@ export class CompassWindow extends HandlebarsApplicationMixin(ApplicationV2) {
 
   /** @override */
   static PARTS = {
-    body: {template: `${TEMPLATES}/gm.hbs`}
+    body: {template: `${TEMPLATES}/gm.hbs`, scrollable: [""]}
   };
 
   /** The view of the middle panel: "scale", "compass" or "history". */

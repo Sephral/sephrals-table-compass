@@ -34,7 +34,7 @@ export class FeedbackForm extends HandlebarsApplicationMixin(ApplicationV2) {
 
   /** @override */
   static PARTS = {
-    body: {template: `${TEMPLATES}/feedback.hbs`}
+    body: {template: `${TEMPLATES}/feedback.hbs`, scrollable: [""]}
   };
 
   /** The answers being written. */

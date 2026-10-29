@@ -32,7 +32,7 @@ export class TableChoices extends HandlebarsApplicationMixin(ApplicationV2) {
 
   /** @override */
   static PARTS = {
-    form: {template: `${TEMPLATES}/choices.hbs`},
+    form: {template: `${TEMPLATES}/choices.hbs`, scrollable: [""]},
     footer: {template: "templates/generic/form-footer.hbs"}
   };
 

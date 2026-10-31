@@ -1,7 +1,8 @@
-import {MODULE_ID, isShown, t} from "./config.mjs";
+import {MODULE_ID, TESTED_VERSIONS, isShown, t} from "./config.mjs";
 import {openChoices} from "./choices-app.mjs";
 import {registerDebug} from "./debug.mjs";
 import {saveDebugFile} from "./debug-file.mjs";
+import {registerHubModule} from "./hub.mjs";
 import {openFeedback, syncFeedback} from "./feedback-app.mjs";
 import {openCompass, refreshCompass, showOrb} from "./gm-app.mjs";
 import {applyModuleLanguage} from "./language.mjs";
@@ -23,6 +24,7 @@ const TOOL = "stc-compass";
 let lastXAck = 0;
 
 Hooks.once("init", () => {
+  registerHubModule({moduleId: MODULE_ID, tested: TESTED_VERSIONS});
   registerSettings({
     language: value => changeLanguage(value, redraw),
     redraw,

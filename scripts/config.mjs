@@ -16,7 +16,7 @@ export const TEMPLATES = `modules/${MODULE_ID}/templates`;
 export const POLL_SECONDS = 30;
 
 /** The Foundry versions the module was verified against (see the self-test). */
-export const TESTED_VERSIONS = {core: "14.369"};
+export const TESTED_VERSIONS = {core: "14.370"};
 
 /**
  * Read a setting of this module.

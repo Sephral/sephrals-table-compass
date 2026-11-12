@@ -89,7 +89,7 @@ With the GM’s consent only the active GM’s browser counts, and it sends at m
 * how often scene checks and feedback rounds run, a new session starts, the GM saves which scales, signals and wishes are offered, past results are opened and the GM switches between the compass and the history
 * the settings *Look* and *Delay of the GM's view* (only the chosen option)
 * whether the GM uses the window or the orb
-* where errors occur in the module code: file, line and error type, never the error message
+* where errors occur in the module code: file, line, error type and whether the error arose in the module itself, in Foundry, in the game system or in another module, never the error message or the name of another module
 
 No names, chat messages, notes, dice results or other content of the world are sent. Votes, signals, wishes and the X card are never counted, and neither is who gave feedback.
 

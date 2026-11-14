@@ -23,6 +23,10 @@ export const DEFAULT_WISHES = WISHES.slice(0, 12);
 /** Topics of the feedback round (highlight, more of, less of). */
 export const TOPICS = ["combat", "roleplay", "exploration", "puzzle", "story", "humor", "character"];
 
+/** Suggestions for lines and veils (the players can also write their own). */
+export const LV_TOPICS = ["violenceChildren", "sexualViolence", "torture", "gore", "animalHarm", "abuse", "slavery", "suicide",
+  "bodyHorror", "spiders", "snakes", "insects", "needles", "drowning", "trapped", "illness"];
+
 /** Answers of the scene check, from "not my thing" (1) to "great" (5). */
 export const FACES = [1, 2, 3, 4, 5];
 
@@ -35,6 +39,7 @@ export const ICONS = {
   xcard: "M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM9 9l6 6M15 9l-6 6",
   lock: "M7 11h10a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2zM8 11V7a4 4 0 0 1 8 0v4",
   scale: "M4 12h16M7 8v8M17 8v8M12 5v14",
+  people: "M9 11a3 3 0 1 0 0-6a3 3 0 1 0 0 6zM3 20a6 6 0 0 1 12 0M16 5.5a3 3 0 0 1 0 5.5M17 14a6 6 0 0 1 4 6",
   history: "M3 17l5-5 4 3 8-8M3 21h18",
   timer: "M12 5a8 8 0 1 0 0 16a8 8 0 1 0 0-16zM12 9v4l2 2M9 2h6",
   feedback: "M4 5h16v11H9l-5 4z",

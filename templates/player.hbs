@@ -27,6 +27,9 @@
     <button type="button" class="stc-xcard-button {{#if xcard.waiting}}waiting{{/if}}" data-action="xcard">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{icons.xcard}}"></path></svg><span>{{xcard.label}}</span>
     </button>
+    <button type="button" class="stc-round-link" data-action="openLines">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{icons.people}}"></path></svg><span>{{localize "STC.Lines.open"}}</span>
+    </button>
     {{/if}}
 
     {{#if tab.mood}}

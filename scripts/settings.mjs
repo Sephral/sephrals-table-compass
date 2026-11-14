@@ -23,12 +23,16 @@ export const SETTINGS = {
   fadeMinutes: {type: Number, default: 20, range: {min: 5, max: 60, step: 5}, onChange: "flush"},
   signalMinutes: {type: Number, default: 5, range: {min: 1, max: 30, step: 1}, onChange: "flush"},
   freeText: {type: Boolean, default: true},
-  xcardSound: {type: Boolean, default: true}
+  xcardSound: {type: Boolean, default: true},
+  spotlight: {type: Boolean, default: true, onChange: "flush"},
+  spotlightMinutes: {type: Number, default: 20, range: {min: 10, max: 60, step: 5}, onChange: "flush"},
+  linesFreeText: {type: Boolean, default: true, onChange: "redraw"}
 };
 
 /**
  * Register all settings of the module and its menus.
- * @param {{language: Function, redraw: Function, flush: Function, publicChanged: Function, choicesChanged: Function}} handlers
+ * @param {{language: Function, redraw: Function, flush: Function, publicChanged: Function, choicesChanged: Function,
+ *   linesChanged: Function}} handlers
  */
 export function registerSettings(handlers) {
   for ( const [key, def] of Object.entries(SETTINGS) ) {
@@ -50,7 +54,13 @@ export function registerSettings(handlers) {
   game.settings.register(MODULE_ID, "choices", {scope: "world", config: false, type: Object, default: {},
     onChange: value => handlers.choicesChanged?.(value)});
 
+  // The shared list of lines and veils, written by the GM
+  game.settings.register(MODULE_ID, "lv", {scope: "world", config: false, type: Object, default: {},
+    onChange: value => handlers.linesChanged?.(value)});
+
   // Kept on the GM's own client: the history of the session and the results of the feedback rounds
+  game.settings.register(MODULE_ID, "spotlightBook", {scope: "client", config: false, type: Object, default: {}});
+  game.settings.register(MODULE_ID, "lvTokens", {scope: "client", config: false, type: Object, default: {}});
   game.settings.register(MODULE_ID, "history", {scope: "client", config: false, type: Object, default: {}});
   game.settings.register(MODULE_ID, "results", {scope: "client", config: false, type: Array, default: []});
   game.settings.register(MODULE_ID, "gmView", {scope: "client", config: false, type: String, default: "orb"});
@@ -91,7 +101,7 @@ class CompassSelfTestMenu extends foundry.applications.api.ApplicationV2 {
  */
 export function changeLanguage(value, redraw) {
   applyModuleLanguage(value).then(() => {
-    for ( const id of ["stc-gm", "stc-player", "stc-poll", "stc-feedback", "stc-results"] ) {
+    for ( const id of ["stc-gm", "stc-player", "stc-poll", "stc-feedback", "stc-results", "stc-lines"] ) {
       const app = foundry.applications.instances.get(id);
       if ( isShown(app) ) app.render({window: {title: app.title}});
     }

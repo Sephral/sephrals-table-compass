@@ -3,7 +3,7 @@ import {readFile, readdir} from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 import {fileURLToPath} from "node:url";
-import {AXES, FACES, ICONS, SIGNALS, TOPICS, WISHES, DEFAULT_AXES, DEFAULT_WISHES} from "../scripts/catalog.mjs";
+import {AXES, FACES, ICONS, LV_TOPICS, SIGNALS, TOPICS, WISHES, DEFAULT_AXES, DEFAULT_WISHES} from "../scripts/catalog.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -71,7 +71,9 @@ test("every key used by scripts and templates exists, and every entry of the cat
     used.add(`STC.Results.kind.${k}`);
     used.add(`STC.Feedback.${k}`);
   }
-  for ( const k of ["scale", "compass", "history"] ) used.add(`STC.GM.view.${k}`);
+  for ( const k of ["scale", "compass", "history", "spotlight"] ) used.add(`STC.GM.view.${k}`);
+  for ( const id of LV_TOPICS ) used.add(`STC.Lines.topic.${id}`);
+  for ( const kind of ["line", "veil"] ) for ( const part of ["title", "hint", "placeholder", "shared"] ) used.add(`STC.Lines.${kind}.${part}`);
   for ( const k of ["fine", "split", "few"] ) used.add(`STC.GM.status.${k}`);
   for ( const k of ["xcard", "poll", "wish", "round"] ) used.add(`STC.GM.mark.${k}`);
   for ( const k of ["now", "mood", "wish"] ) used.add(`STC.Player.tab.${k}`);

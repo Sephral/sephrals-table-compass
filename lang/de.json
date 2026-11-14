@@ -43,6 +43,18 @@
       "xcardSound": {
         "name": "Ton für die X-Karte",
         "hint": "Der Client der SL spielt einen kurzen Ton, wenn ein Spieler die X-Karte zeigt."
+      },
+      "spotlight": {
+        "name": "Wer-war-dran-Ansicht",
+        "hint": "Zeigt der SL je Spieler, wie lange sein Charakter zuletzt dran war: nach Würfen, Rollenspiel-Nachrichten, Zügen im Kampf und der eigenen Markierung der SL. Nur die SL sieht das, Spielern wird nichts gezeigt."
+      },
+      "spotlightMinutes": {
+        "name": "Leiser Hinweis nach (Minuten)",
+        "hint": "Ein sanfter Hinweis erscheint, wenn ein Spieler so lange still war und mindestens doppelt so lange wie die anderen."
+      },
+      "linesFreeText": {
+        "name": "Eigene Worte bei roten Linien und Schleiern",
+        "hint": "Spieler dürfen neben den Vorschlägen eigene rote Linien und Schleier aufschreiben."
       }
     },
     "Keybinding": {
@@ -171,7 +183,8 @@
       "view": {
         "scale": "Waage",
         "compass": "Kompassrose",
-        "history": "Verlauf"
+        "history": "Verlauf",
+        "spotlight": "Wer war dran"
       },
       "wishTitle": "{wish}: {count}. Klick zeigt die Aktionen.",
       "wishSoonTitle": "{wish}: {count}, als „kommt bald“ angekündigt.",
@@ -204,7 +217,8 @@
       "startPoll": "Szenen-Check",
       "startRound": "Feedbackrunde",
       "closeRound": "Runde schließen ({count})",
-      "online": "{count} Spieler online"
+      "online": "{count} Spieler online",
+      "lines": "Rote Linien und Schleier"
     },
     "Player": {
       "tab": {
@@ -336,7 +350,9 @@
       "Problems": "Selbsttest: {problems} von {checks} Prüfungen fehlgeschlagen.",
       "Passed": "Selbsttest bestanden: {checks} Prüfungen.",
       "NewVersions": "Der Tischkompass wurde mit einer älteren Version geprüft: {versions}. Starte den Selbsttest in den Moduleinstellungen.",
-      "Version": "Foundry {current} (geprüft {tested})"
+      "Version": "Foundry {current} (geprüft {tested})",
+      "Lines": "Ein Testeintrag für rote Linien und Schleier hat die Prüfung nicht bestanden.",
+      "Spotlight": "Die Wer-war-dran-Ansicht hat im Test den stillen Spieler nicht gefunden."
     },
     "gear": "Einstellungen",
     "DEBUG": {
@@ -345,6 +361,63 @@
       "Hint": "Speichert eine Datei für Fehlerberichte über alle Module von Sephral in dieser Welt: Versionen, Einstellungen und was die Module aufgezeichnet haben, etwa die letzten Chatnachrichten, die sie gelesen haben. Sie enthält Chattext und Flüsternachrichten, prüfe sie vor dem Teilen.",
       "Entry": "Debug-Datei speichern (Sephral’s Module)",
       "Saved": "Debug-Datei {file} gespeichert. Sie enthält Chattext und Flüsternachrichten, prüfe sie vor dem Teilen."
+    },
+    "Spotlight": {
+      "hint": "Schon länger nicht dran: {names}. Vielleicht Zeit für eine eigene Szene.",
+      "notYet": "noch nicht",
+      "now": "gerade eben",
+      "minutes": "vor {minutes} Min.",
+      "hours": "vor {hours} Std. {minutes} Min.",
+      "mark": "{name} war gerade dran",
+      "asked": "Der Tisch hat anonym gemeldet: zu wenig dran ({count}).",
+      "privacy": "Das siehst nur du. Gezählt werden Würfe, Rollenspiel-Nachrichten und Züge im Kampf, nie der Inhalt."
+    },
+    "Lines": {
+      "title": "Rote Linien und Schleier",
+      "open": "Rote Linien und Schleier",
+      "introPlayer": "Anonym: Der Tisch sieht eine gemeinsame Liste, nie wer was gesetzt hat. Du kannst deine jederzeit ändern.",
+      "introGM": "Eine Liste für den Tisch, ohne Namen. Neue Einträge erscheinen nach einer kurzen zufälligen Wartezeit. Deine eigenen Einträge sind als SL gekennzeichnet.",
+      "line": {
+        "title": "Rote Linien",
+        "hint": "Kommt in diesem Spiel nie vor. Wird weder beschrieben noch gezeigt noch gespielt.",
+        "placeholder": "Etwas anderes, mit deinen Worten",
+        "shared": "Rote Linien: nie"
+      },
+      "veil": {
+        "title": "Schleier",
+        "hint": "Darf vorkommen, aber nur hinter den Kulissen. Die Geschichte geht weiter, nichts wird gezeigt.",
+        "placeholder": "Etwas anderes, mit deinen Worten",
+        "shared": "Schleier: hinter den Kulissen"
+      },
+      "topic": {
+        "violenceChildren": "Gewalt gegen Kinder",
+        "sexualViolence": "Sexuelle Gewalt",
+        "torture": "Folter",
+        "gore": "Blutige Details",
+        "animalHarm": "Tierquälerei",
+        "abuse": "Missbrauch",
+        "slavery": "Sklaverei",
+        "suicide": "Suizid",
+        "bodyHorror": "Körperhorror",
+        "spiders": "Spinnen",
+        "snakes": "Schlangen",
+        "insects": "Insekten",
+        "needles": "Spritzen und Nadeln",
+        "drowning": "Ertrinken",
+        "trapped": "Eingesperrt sein",
+        "illness": "Schwere Krankheit"
+      },
+      "add": "Hinzufügen",
+      "remove": "Zurücknehmen",
+      "shared": "An diesem Tisch",
+      "empty": "Noch hat niemand etwas gesetzt.",
+      "gm": "SL",
+      "full": "Du hast {max} Einträge gesetzt. Nimm einen zurück, um einen neuen zu setzen.",
+      "fullToast": "Mehr Einträge kann eine Person nicht setzen.",
+      "invalid": "Das hat nicht geklappt.",
+      "sent": "Gesetzt, ohne deinen Namen.",
+      "call": "Den Tisch fragen",
+      "called": "Der Tisch wurde nach seinen roten Linien und Schleiern gefragt."
     }
   }
 }

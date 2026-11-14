@@ -6,6 +6,8 @@ import {registerHubModule} from "./hub.mjs";
 import {openFeedback, syncFeedback} from "./feedback-app.mjs";
 import {openCompass, refreshCompass, showOrb} from "./gm-app.mjs";
 import {applyModuleLanguage} from "./language.mjs";
+import {openLines, refreshLines} from "./lines-app.mjs";
+import {sharedItems} from "./lines.mjs";
 import {registerSocket} from "./net.mjs";
 import {myState, onMineChange, resendAll} from "./player.mjs";
 import {openPlayerCompass, refreshPlayerCompass} from "./player-app.mjs";
@@ -23,6 +25,9 @@ const TOOL = "stc-compass";
 /** The last X card acknowledgement this client announced. */
 let lastXAck = 0;
 
+/** The last call for lines and veils this client saw. */
+let lastLinesCall = 0;
+
 Hooks.once("init", () => {
   registerHubModule({moduleId: MODULE_ID, tested: TESTED_VERSIONS});
   registerSettings({
@@ -33,6 +38,7 @@ Hooks.once("init", () => {
       redraw();
     },
     publicChanged: onPublicChanged,
+    linesChanged: refreshLines,
     choicesChanged: () => {
       if ( game.user.isActiveGM ) tracker.refresh();
       refreshPlayerCompass();
@@ -42,8 +48,8 @@ Hooks.once("init", () => {
   // Only what the GM starts or opens counts, never the X card, signals, votes, wishes or ratings of the players
   registerUsage(MODULE_ID, {
     features: ["sceneCheck", "feedbackRound", "newSession", "tableChoices", "pastResults", "compassPanel",
-      "historyPanel"],
-    settings: ["gmView", "theme", "updateDelay"]
+      "historyPanel", "spotlightPanel", "spotlightMark", "linesWindow", "linesCall", "linesOwn"],
+    settings: ["gmView", "theme", "updateDelay", "spotlight"]
   });
   game.keybindings.register(MODULE_ID, "open", {
     name: "STC.Keybinding.open",
@@ -70,6 +76,14 @@ Hooks.once("init", () => {
     /** The results of the feedback rounds kept on this GM client, and the window for them. */
     results: tracker.results,
     openResults,
+    /** The spotlight view of the GM's window: per player minutes since the last time in the spotlight (GM). */
+    spotlight: tracker.spotlightView,
+    /** Mark a player as having had the spotlight just now (GM). */
+    markSpotlight: tracker.markSpot,
+    /** Lines and veils: the window, the shared list and the call to the table (GM). */
+    openLines,
+    lines: sharedItems,
+    callLines: tracker.callLines,
     /** The history of the session on this GM client. */
     history: tracker.history,
     /** The scales, signals and wishes of the table, and the window to choose them (GM). */
@@ -103,6 +117,7 @@ Hooks.once("ready", async () => {
   tracker.onViewChange(refreshCompass);
   onMineChange(refreshPlayerCompass);
   lastXAck = publicState().xAck ?? 0;
+  lastLinesCall = publicState().lvCall ?? 0;
   Hooks.on("userConnected", onUserConnected);
   if ( game.user.isGM ) {
     if ( game.user.isActiveGM ) await tracker.startTracking();
@@ -131,7 +146,7 @@ function open() {
 function redraw() {
   refreshCompass();
   refreshPlayerCompass();
-  for ( const id of ["stc-poll", "stc-feedback", "stc-results"] ) {
+  for ( const id of ["stc-poll", "stc-feedback", "stc-results", "stc-lines"] ) {
     const app = foundry.applications.instances.get(id);
     if ( isShown(app) ) app.render();
   }
@@ -151,6 +166,12 @@ function onPublicChanged(value) {
   if ( ack > lastXAck ) {
     if ( !game.user.isGM ) ui.notifications.info(t("STC.XCard.acknowledged"));
     lastXAck = ack;
+  }
+  // The GM asked the table for its lines and veils: the window opens for the players
+  const call = value?.lvCall ?? 0;
+  if ( call > lastLinesCall ) {
+    if ( !game.user.isGM ) openLines();
+    lastLinesCall = call;
   }
 }
 

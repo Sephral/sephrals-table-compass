@@ -26,7 +26,8 @@ export class PlayerCompass extends HandlebarsApplicationMixin(ApplicationV2) {
       signal: PlayerCompass.#onSignal,
       xcard: PlayerCompass.#onXCard,
       wish: PlayerCompass.#onWish,
-      openRound: PlayerCompass.#onOpenRound
+      openRound: PlayerCompass.#onOpenRound,
+      openLines: PlayerCompass.#onOpenLines
     }
   };
 
@@ -132,6 +133,11 @@ export class PlayerCompass extends HandlebarsApplicationMixin(ApplicationV2) {
 
   static async #onOpenRound() {
     await openFeedback();
+  }
+
+  static async #onOpenLines() {
+    const {openLines} = await import("./lines-app.mjs");
+    await openLines();
   }
 
   static #onWish(event, target) {

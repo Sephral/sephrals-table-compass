@@ -7,9 +7,13 @@
 
 import {SIGNALS, WISHES} from "./catalog.mjs";
 import {MODULE_ID, POLL_SECONDS, onlinePlayers, setting, t} from "./config.mjs";
+import {addGMItem, receiveLines, removeGMItem, startLines, stopLines} from "./lines.mjs";
 import {sendToUsers} from "./net.mjs";
 import {activeEntries, batchDelay, cleanMessage, summarizeAxis, summarizeFeedback, summarizePoll} from "./rules.mjs";
 import {choices, publicState, updatePublic} from "./state.mjs";
+import {
+  markSpotlight, resetSpotlight, spotlightEnabled, spotlightSnapshot, startSpotlight, stopSpotlight
+} from "./spotlight.mjs";
 import {countFeature} from "./usage.mjs";
 
 /** A new session starts when the compass was quiet this long. */
@@ -46,6 +50,9 @@ let snapshot = null;
 /** The copy another GM's client got from the active GM. */
 let remote = null;
 
+/** The same for the spotlight view. */
+let remoteSpotlight = null;
+
 /** Called whenever the GM's view changes. */
 const listeners = new Set();
 
@@ -53,6 +60,9 @@ let flushTimer = null;
 
 /** Whether this client collects right now. */
 let tracking = false;
+
+/** Counts the pruning rounds, so the spotlight view redraws once a minute. */
+let spotlightTicks = 0;
 
 /** The intervals of pruning and sampling, started once. */
 let timers = null;
@@ -68,6 +78,17 @@ let timers = null;
 export function view() {
   if ( game.user.isActiveGM ) return snapshot ?? buildSnapshot();
   return remote ?? buildSnapshot();
+}
+
+/**
+ * The spotlight view of this GM client: per player how long ago the character was last in the spotlight. It is kept
+ * apart from the votes, which never name anybody: the view of the votes stays free of names. Null while it is off.
+ * @returns {{rows: object[], quiet: string[], names: string[]}|null}
+ */
+export function spotlightView() {
+  if ( !spotlightEnabled() ) return null;
+  if ( game.user.isActiveGM ) return spotlightSnapshot();
+  return remoteSpotlight;
 }
 
 /**
@@ -137,6 +158,8 @@ export async function startTracking() {
     if ( round ) live.round = {id: round.id, started: Date.now(), answers: new Map()};
     if ( poll ) await updatePublic({poll: null});
   }
+  startSpotlight(spotlightChanged);
+  startLines();
   sendToUsers({type: "resync"}, onlinePlayers().map(u => u.id));
   flush();
 }
@@ -151,6 +174,8 @@ export function stopTracking() {
   live.poll = null;
   live.round = null;
   snapshot = null;
+  stopSpotlight();
+  stopLines();
   changed();
 }
 
@@ -159,6 +184,7 @@ export function stopTracking() {
  * @param {object} message
  */
 export function receive(message) {
+  if ( receiveLines(message) ) return;
   const clean = cleanMessage(message, {...choices(), freeText: setting("freeText")});
   if ( !clean ) return;
   const time = Date.now();
@@ -220,7 +246,9 @@ export function refresh() {
   if ( !game.user.isActiveGM ) return changed();
   snapshot = buildSnapshot();
   touchSession();
-  sendToUsers({type: "snapshot", snapshot}, game.users.filter(u => u.isGM && u.active && (u !== game.user)).map(u => u.id));
+  const others = game.users.filter(u => u.isGM && u.active && (u !== game.user)).map(u => u.id);
+  sendToUsers({type: "snapshot", snapshot}, others);
+  if ( spotlightEnabled() ) sendToUsers({type: "spotlight", spotlight: spotlightSnapshot()}, others);
   changed();
 }
 
@@ -243,7 +271,9 @@ function prune() {
   const signalAge = setting("signalMinutes") * 60 * 1000;
   for ( const map of [live.axes, shown.axes] ) drop(map, fade);
   for ( const map of [live.signals, shown.signals] ) drop(map, signalAge);
-  if ( removed || (snapshot && (snapshot.online !== onlinePlayers().length)) ) refresh();
+  // The minutes in the spotlight view move on, about once a minute
+  spotlightTicks = (spotlightTicks + 1) % 3;
+  if ( removed || (snapshot && (snapshot.online !== onlinePlayers().length)) || (!spotlightTicks && spotlightEnabled() && onlinePlayers().length) ) refresh();
   // While players are online the session counts as in use
   else if ( onlinePlayers().length ) touchSession();
 }
@@ -298,7 +328,11 @@ const ACTIONS = {
   clearSignal: id => SIGNALS.includes(id) && clearSignal(id),
   toggleSoon: id => WISHES.includes(id) && toggleSoon(id),
   fulfillWish: id => WISHES.includes(id) && fulfillWish(id),
-  newSession: () => newSession()
+  newSession: () => newSession(),
+  spotlightMark: id => (typeof id === "string") && markSpot(id),
+  lvCall: () => callLines(),
+  lvAdd: (id, message) => addGMItem({kind: message.kind, topic: message.topic, text: message.text}),
+  lvRemove: id => removeGMItem(id)
 };
 
 /**
@@ -307,7 +341,7 @@ const ACTIONS = {
  */
 export function runAction(message) {
   if ( !game.user.isActiveGM || !Object.hasOwn(ACTIONS, message.action) ) return;
-  ACTIONS[message.action](message.id);
+  ACTIONS[message.action](message.id, message);
 }
 
 /**
@@ -330,6 +364,7 @@ export async function newSession({quiet=false}={}) {
   await updatePublic({session: {id: foundry.utils.randomID(), started: time, active: time}, soon: [], fulfilled: {},
     cleared: {}, poll: null, round: null});
   await game.settings.set(MODULE_ID, "history", {session: publicState().session.id, points: [], marks: []});
+  resetSpotlight();
   snapshot = null;
   refresh();
   if ( !quiet ) countFeature(MODULE_ID, "newSession");
@@ -395,6 +430,30 @@ export async function fulfillWish(id) {
     soon: state.soon.filter(x => x !== id)}));
   mark("wish", undefined, id);
   refresh();
+}
+
+/**
+ * The GM marks a player as having had the spotlight just now.
+ * @param {string} userId
+ */
+export function markSpot(userId) {
+  if ( !game.user.isGM || forward("spotlightMark", userId) ) return;
+  if ( markSpotlight(userId) ) countFeature(MODULE_ID, "spotlightMark");
+  refresh();
+}
+
+/** The spotlight changed: redraw soon, so a burst of rolls draws once. */
+const spotlightChanged = foundry.utils.debounce(() => {
+  if ( tracking ) refresh();
+}, 4000);
+
+/**
+ * The GM asks the table to say their lines and veils: the players' window opens.
+ */
+export async function callLines() {
+  if ( !game.user.isGM || forward("lvCall") ) return;
+  await updatePublic(state => ({lvCall: (state.lvCall ?? 0) + 1}));
+  countFeature(MODULE_ID, "linesCall");
 }
 
 /** Start a scene check. */
@@ -501,6 +560,11 @@ function mark(kind, value, id) {
  */
 export function receiveFromGM(message) {
   if ( !game.user.isGM || game.user.isActiveGM ) return;
+  if ( message.type === "spotlight" ) {
+    remoteSpotlight = message.spotlight ?? null;
+    changed();
+    return;
+  }
   if ( (message.type === "snapshot") && message.snapshot ) {
     const previous = remote?.xcards ?? 0;
     // The clocks of two computers may differ: the times of the copy count from when it arrived here

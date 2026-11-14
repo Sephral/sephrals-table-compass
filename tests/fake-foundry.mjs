@@ -6,13 +6,16 @@
 
 /** Settings as Foundry registers them for the module, read when nothing was set. */
 const DEFAULTS = {updateDelay: "off", minVotes: 2, fadeMinutes: 20, signalMinutes: 5, freeText: true, xcardSound: false,
+  spotlight: true, spotlightMinutes: 20, spotlightBook: {}, linesFreeText: true, lv: {}, lvTokens: {},
   public: {}, choices: {}, history: {}, results: []};
 
 export class FakeUser {
-  constructor(id, role, active=true) {
+  constructor(id, role, active=true, name=id) {
     this.id = id;
     this.role = role;
     this.active = active;
+    this.name = name;
+    this.character = null;
   }
 
   get isGM() {
@@ -29,10 +32,10 @@ export class FakeUser {
 }
 
 export const users = {
-  gm: new FakeUser("GameMaster000001", 4),
-  assistant: new FakeUser("AssistantGM00001", 3),
-  p1: new FakeUser("PlayerOne0000001", 1),
-  p2: new FakeUser("PlayerTwo0000002", 2)
+  gm: new FakeUser("GameMaster000001", 4, true, "Gamemaster"),
+  assistant: new FakeUser("AssistantGM00001", 3, true, "Assistant"),
+  p1: new FakeUser("PlayerOne0000001", 1, true, "Anna"),
+  p2: new FakeUser("PlayerTwo0000002", 2, true, "Ben")
 };
 const all = Object.values(users);
 
@@ -48,8 +51,14 @@ export const notes = [];
 /** Local storage of the browser. */
 export const storage = new Map();
 
+/** Hooks registered, by name. */
+export const hooks = new Map();
+
+globalThis.Hooks = {on: (name, fn) => hooks.set(name, [...(hooks.get(name) ?? []), fn])};
+
 globalThis.game = {
   user: users.gm,
+  combat: null,
   world: {id: "test"},
   users: {
     get activeGM() {
@@ -70,7 +79,7 @@ globalThis.game = {
 };
 globalThis.ui = {notifications: {info: text => notes.push(["info", text]), warn: text => notes.push(["warn", text])}};
 globalThis.foundry = {
-  utils: {debounce: fn => fn, randomID: () => Array.from({length: 16}, () => "abcdefghijkmnopqrstuvwxyz23456789"[Math.floor(Math.random() * 33)]).join("")},
+  utils: {debounce: fn => fn, deepClone: value => structuredClone(value), randomID: () => Array.from({length: 16}, () => "abcdefghijkmnopqrstuvwxyz23456789"[Math.floor(Math.random() * 33)]).join("")},
   audio: {AudioHelper: {play: () => {}}}
 };
 globalThis.CONST = {USER_ROLES: {PLAYER: 1}};

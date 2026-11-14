@@ -10,11 +10,13 @@
 
 ## Highlights
 
-* **Scales with fine in the middle:** pace, tension, roleplay, combat and challenge, and more if the GM likes: descriptions, humor, exploration, rules at the table.
+* **Scales with fine in the middle:** pace, tension, roleplay, combat and challenge, and more if the GM likes.
 * **Quick signals:** a break, lost the thread, not enough spotlight, more of this, tech trouble. And the X card, which reaches the GM at once.
 * **Wishes for the next scenes:** combat, a puzzle, a character moment, a campfire, loot, intrigue and more. The GM can answer with "coming soon".
-* **A small window for the GM:** the scales as balances, a compass rose and the history of the evening. Collapsed it becomes an orb that glows green, amber or red.
+* **A small window for the GM:** the scales as balances, a compass rose and the history of the evening. Collapsed it is an orb that glows green, amber or red.
 * **Scene check:** the GM asks "How was the scene?" and the players answer with a face in 30 seconds.
+* **Who has been in the scene:** per player the GM sees how long ago their character had the spotlight, from rolls, in-character messages and moves in combat, with a soft bar and a gentle hint when someone has been quiet much longer than the others.
+* **Lines and veils:** at session zero or later the players set lines (never in this game) and veils (off screen) anonymously. Everybody reads one list without names.
 * **Feedback round:** at the end of the session the players rate the evening, name their highlight and what they want more or less of, and say it in their own words if they like.
 * **Anonymous by design:** names are never shown or kept, results appear only from two votes on and with a short random delay, and free texts come back in a random order. Being anonymous makes honest feedback more likely.
 
@@ -26,7 +28,7 @@
 
 ## Good to know
 
-A GM has to be online to receive the votes. What players say while no GM is there goes out as soon as one joins.
+A GM has to be online to receive the votes. What players say while no GM is there goes out as soon as one joins. Only the spotlight view names players: it counts what the GM sees anyway, keeps no texts and can be switched off.
 
 ## Install
 

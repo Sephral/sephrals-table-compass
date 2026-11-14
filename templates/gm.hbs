@@ -22,8 +22,8 @@
     <div class="stc-switch" role="group">
       {{#each panels}}
       <button type="button" class="{{#if active}}active{{/if}}" data-action="view" data-view="{{id}}"
-              data-tooltip="{{label}}" aria-label="{{label}}" aria-pressed="{{#if active}}true{{else}}false{{/if}}">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{icon}}"></path></svg>
+              data-tooltip="{{title}}" aria-label="{{label}}" aria-pressed="{{#if active}}true{{else}}false{{/if}}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{icon}}"></path></svg>{{#if alert}}<i class="stc-switch-dot" aria-hidden="true"></i>{{/if}}
       </button>
       {{/each}}
     </div>
@@ -59,6 +59,24 @@
       {{/each}}
       <polygon points="{{compass.polygon}}" class="stc-area"></polygon>
     </svg>
+    {{/if}}
+
+    {{#if panel.spotlight}}
+    <div class="stc-spot">
+      {{#each spotlight.rows}}
+      <div class="stc-spot-row stc-spot-{{state}}" data-user="{{id}}">
+        <span class="stc-spot-name" data-tooltip="{{title}}">{{name}}</span>
+        <span class="stc-spot-bar" aria-hidden="true"><span style="width: {{bar}}%"></span></span>
+        <span class="stc-spot-ago">{{ago}}</span>
+        <button type="button" class="stc-spot-mark" data-action="spotMark" data-id="{{id}}" data-tooltip="{{markTitle}}"
+                aria-label="{{markTitle}}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{icon}}"></path></svg></button>
+      </div>
+      {{/each}}
+      {{#unless spotlight.hasRows}}<p class="stc-hint">{{localize "STC.GM.nobody"}}</p>{{/unless}}
+      {{#if spotlight.hint}}<p class="stc-spot-hint" role="status">{{spotlight.hint}}</p>{{/if}}
+      {{#if spotlight.asked}}<p class="stc-hint">{{spotlight.asked}}</p>{{/if}}
+      <p class="stc-hint">{{localize "STC.Spotlight.privacy"}}</p>
+    </div>
     {{/if}}
 
     {{#if panel.history}}

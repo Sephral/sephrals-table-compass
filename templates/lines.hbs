@@ -1,0 +1,56 @@
+<div class="stc-body">
+  <p class="stc-anon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{icons.lock}}"></path></svg>{{intro}}</p>
+  {{#if noGM}}<p class="stc-note stc-warn">{{localize "STC.Player.noGM"}}</p>{{/if}}
+
+  {{#each kinds}}
+  <section class="stc-lv-set" data-kind="{{kind}}">
+    <h3>{{title}}</h3>
+    <p class="stc-hint">{{hint}}</p>
+    <div class="stc-lv-chips">
+      {{#each chips}}
+      <button type="button" class="stc-lv-chip {{#if on}}on{{/if}}" data-action="topic" data-kind="{{../kind}}"
+              data-topic="{{topic}}" aria-pressed="{{#if on}}true{{else}}false{{/if}}">{{label}}</button>
+      {{/each}}
+    </div>
+    {{#if texts.length}}
+    <div class="stc-lv-chips">
+      {{#each texts}}
+      <button type="button" class="stc-lv-chip on stc-lv-own" data-action="removeText" data-kind="{{../kind}}"
+              data-text="{{text}}" data-tooltip="{{localize "STC.Lines.remove"}}"
+              aria-label="{{localize "STC.Lines.remove"}}: {{text}}">{{text}} <i class="fa-solid fa-xmark" inert></i></button>
+      {{/each}}
+    </div>
+    {{/if}}
+    {{#if ../freeText}}
+    <div class="stc-lv-add">
+      <input type="text" name="draft-{{kind}}" data-draft="{{kind}}" value="{{draft}}" maxlength="{{limit}}" placeholder="{{placeholder}}"
+             aria-label="{{placeholder}}">
+      <button type="button" data-action="addText" data-kind="{{kind}}">{{localize "STC.Lines.add"}}</button>
+    </div>
+    {{/if}}
+  </section>
+  {{/each}}
+  {{#if full}}<p class="stc-hint">{{fullText}}</p>{{/if}}
+  <p class="stc-toast {{#if toast}}shown{{/if}}" role="status">{{toast}}</p>
+
+  <section class="stc-lv-shared">
+    <h3>{{localize "STC.Lines.shared"}}</h3>
+    {{#if sharedEmpty}}<p class="stc-hint">{{localize "STC.Lines.empty"}}</p>{{/if}}
+    <div class="stc-lv-columns">
+      {{#each shared}}
+      <div class="stc-lv-column" data-kind="{{kind}}">
+        <h4>{{title}}</h4>
+        <ul>
+          {{#each items}}<li>{{label}}{{#if gm}} <small class="stc-lv-gm">{{localize "STC.Lines.gm"}}</small>{{/if}}</li>{{/each}}
+        </ul>
+      </div>
+      {{/each}}
+    </div>
+  </section>
+
+  {{#if isGM}}
+  <div class="stc-footer">
+    <button type="button" class="stc-primary" data-action="call"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{icons.people}}"></path></svg>{{localize "STC.Lines.call"}}</button>
+  </div>
+  {{/if}}
+</div>

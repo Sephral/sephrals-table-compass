@@ -6,6 +6,7 @@
 
 import {MODULE_ID, t} from "./config.mjs";
 import {registerDebugMenu, registerDebugProvider} from "./debug-file.mjs";
+import {sharedItems} from "./lines.mjs";
 import {choices, publicState} from "./state.mjs";
 import * as tracker from "./tracker.mjs";
 
@@ -37,6 +38,8 @@ export function describeState() {
     poll: state.poll ? {id: state.poll.id, seconds: state.poll.seconds} : null,
     round: state.round ? {id: state.round.id, count: state.round.count} : null,
     xAck: state.xAck,
+    spotlight: attempt(() => game.settings.get(MODULE_ID, "spotlight")),
+    lines: attempt(() => ({items: sharedItems().length, calls: state.lvCall})),
     announcedWishes: state.soon.length,
     choices: {axes: picked.axes.length, signals: picked.signals.length, wishes: picked.wishes.length},
     live: live?.error ? live : {
@@ -63,6 +66,6 @@ export function registerDebug() {
     notice: file => t("STC.DEBUG.Saved", {file}),
     recent: () => ({details: describeState()}),
     // What the players said, even summed up, stays with the GM
-    omitSettings: ["history", "results"]
+    omitSettings: ["history", "results", "spotlightBook", "lvTokens", "lv"]
   });
 }

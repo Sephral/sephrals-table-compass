@@ -43,6 +43,18 @@
       "xcardSound": {
         "name": "Sound for the X card",
         "hint": "The GM's client plays a short sound when a player shows the X card."
+      },
+      "spotlight": {
+        "name": "Spotlight view",
+        "hint": "Shows the GM per player how long ago their character was last in the spotlight, from rolls, in-character messages, token moves in combat and the GM's own mark. Only the GM sees it, nothing is shown to players."
+      },
+      "spotlightMinutes": {
+        "name": "Quiet hint after (minutes)",
+        "hint": "A gentle hint appears when a player has been quiet this long and at least twice as long as the others."
+      },
+      "linesFreeText": {
+        "name": "Own words for lines and veils",
+        "hint": "Players may write their own lines and veils besides the suggestions."
       }
     },
     "Keybinding": {
@@ -171,7 +183,8 @@
       "view": {
         "scale": "Balance",
         "compass": "Compass rose",
-        "history": "History"
+        "history": "History",
+        "spotlight": "Spotlight"
       },
       "wishTitle": "{wish}: {count}. Click for the actions.",
       "wishSoonTitle": "{wish}: {count}, announced as coming soon.",
@@ -204,7 +217,8 @@
       "startPoll": "Scene check",
       "startRound": "Feedback round",
       "closeRound": "Close round ({count})",
-      "online": "{count} players online"
+      "online": "{count} players online",
+      "lines": "Lines and veils"
     },
     "Player": {
       "tab": {
@@ -336,7 +350,9 @@
       "Problems": "Self test: {problems} of {checks} checks failed.",
       "Passed": "Self test passed: {checks} checks.",
       "NewVersions": "Table Compass was verified with an earlier version: {versions}. Run the self test in the module settings.",
-      "Version": "Foundry {current} (verified {tested})"
+      "Version": "Foundry {current} (verified {tested})",
+      "Lines": "A test entry for lines and veils did not pass the checks.",
+      "Spotlight": "The spotlight view did not find the quiet player in a test."
     },
     "gear": "Settings",
     "DEBUG": {
@@ -345,6 +361,63 @@
       "Hint": "Saves one file for bug reports about all of Sephral’s modules in this world: versions, settings and what the modules recorded, such as the latest chat messages they read. It contains chat text and whispers, check it before you share it.",
       "Entry": "Save Debug File (Sephral’s Modules)",
       "Saved": "Debug file {file} saved. It contains chat text and whispers, check it before you share it."
+    },
+    "Spotlight": {
+      "hint": "Not in the scene for a while: {names}. Maybe time for a scene of their own.",
+      "notYet": "not yet",
+      "now": "just now",
+      "minutes": "{minutes} min ago",
+      "hours": "{hours} h {minutes} min ago",
+      "mark": "Mark {name} as in the spotlight now",
+      "asked": "The table sent the signal \"not enough spotlight\" ({count}).",
+      "privacy": "Only you see this. Rolls, in-character messages and token moves in combat count, never what was said."
+    },
+    "Lines": {
+      "title": "Lines and veils",
+      "open": "Lines and veils",
+      "introPlayer": "Anonymous: the table sees one shared list, never who set what. You can change yours at any time.",
+      "introGM": "One list for the table, without names. New entries show up after a short random wait. Your own entries are marked as the GM's.",
+      "line": {
+        "title": "Lines",
+        "hint": "Never in this game. Not described, not shown, not played.",
+        "placeholder": "Something else, in your words",
+        "shared": "Lines: never"
+      },
+      "veil": {
+        "title": "Veils",
+        "hint": "May happen, but off screen. The story moves on and nothing is shown.",
+        "placeholder": "Something else, in your words",
+        "shared": "Veils: off screen"
+      },
+      "topic": {
+        "violenceChildren": "Harm to children",
+        "sexualViolence": "Sexual violence",
+        "torture": "Torture",
+        "gore": "Gore",
+        "animalHarm": "Harm to animals",
+        "abuse": "Abuse",
+        "slavery": "Slavery",
+        "suicide": "Suicide",
+        "bodyHorror": "Body horror",
+        "spiders": "Spiders",
+        "snakes": "Snakes",
+        "insects": "Insects",
+        "needles": "Needles and injections",
+        "drowning": "Drowning",
+        "trapped": "Being trapped",
+        "illness": "Serious illness"
+      },
+      "add": "Add",
+      "remove": "Take back",
+      "shared": "At this table",
+      "empty": "Nobody has set anything yet.",
+      "gm": "GM",
+      "full": "You have set {max} entries. Take one back to add another.",
+      "fullToast": "That is the most entries one person can set.",
+      "invalid": "That did not work.",
+      "sent": "Set, without your name.",
+      "call": "Ask the table",
+      "called": "The table was asked for its lines and veils."
     }
   }
 }

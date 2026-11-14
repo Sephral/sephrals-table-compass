@@ -14,6 +14,7 @@ import {MODULE_ID, setting} from "./config.mjs";
  * @property {Record<string, number>} fulfilled  Wish id -> how often the GM marked it fulfilled
  * @property {Record<string, number>} cleared    Signal id -> how often the GM ticked it off
  * @property {number} xAck                       How often the GM acknowledged an X card
+ * @property {number} lvCall                     How often the GM asked the table for lines and veils
  * @property {{id: string, seconds: number}|null} poll
  * @property {{id: string, count: number}|null} round
  *
@@ -21,7 +22,7 @@ import {MODULE_ID, setting} from "./config.mjs";
  */
 
 /** @type {PublicState} */
-const DEFAULTS = {session: null, soon: [], fulfilled: {}, cleared: {}, xAck: 0, poll: null, round: null};
+const DEFAULTS = {session: null, soon: [], fulfilled: {}, cleared: {}, xAck: 0, lvCall: 0, poll: null, round: null};
 
 /** Writes in order, so two quick changes do not overwrite each other. */
 let writing = Promise.resolve();

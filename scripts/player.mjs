@@ -6,6 +6,7 @@
  */
 
 import {MODULE_ID, setting} from "./config.mjs";
+import {linesMessages} from "./lines.mjs";
 import {sendToGM} from "./net.mjs";
 import {cleanAnswers, makeToken} from "./rules.mjs";
 import {publicState} from "./state.mjs";
@@ -236,6 +237,7 @@ export function resendAll() {
   for ( const [id, entry] of Object.entries(state.wishes) ) {
     if ( wishActive(id, entry) ) messages.push({type: "wish", token: entry.token, id, on: true});
   }
+  messages.push(...linesMessages());
   const round = publicState().round;
   const sent = round ? state.rounds[round.id] : null;
   if ( sent ) messages.push({type: "feedback", token: sent.token, round: round.id, answers: sent.answers});

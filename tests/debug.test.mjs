@@ -22,7 +22,7 @@ test("the menu button and the part of the debug file are registered", () => {
   assert.equal(menu.restricted, true);
   assert.equal(menu.label, "STC.DEBUG.Save");
   const provider = globalThis.sephralsDebugFiles.providers.get(MODULE_ID);
-  assert.deepEqual(provider.omitSettings, ["history", "results"]);
+  assert.deepEqual(provider.omitSettings, ["history", "results", "spotlightBook", "lvTokens", "lv"]);
   // The compass reads no chat messages
   assert.equal(provider.message, undefined);
   assert.equal(typeof hooks.get("getChatMessageContextOptions"), "function");

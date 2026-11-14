@@ -9,14 +9,16 @@ const {ApplicationV2, HandlebarsApplicationMixin} = foundry.applications.api;
 import {ICONS} from "./catalog.mjs";
 import {MODULE_ID, TEMPLATES, addSettingsGear, decimal, isShown, locale, setting, t} from "./config.mjs";
 import {compassCorners, sparkline} from "./rules.mjs";
+import {agePhrase} from "./spotlight-rules.mjs";
 import {publicState} from "./state.mjs";
 import {
-  acknowledgeXCard, clearSignal, closeRound, fulfillWish, history, newSession, startPoll, startRound, toggleSoon, view
+  acknowledgeXCard, clearSignal, closeRound, fulfillWish, history, markSpot, newSession, spotlightView, startPoll,
+  startRound, toggleSoon, view
 } from "./tracker.mjs";
 import {countFeature, markUsed} from "./usage.mjs";
 
 /** Usage counters of the middle panel views; the scales are the default view and count nothing. */
-const PANEL_FEATURES = {compass: "compassPanel", history: "historyPanel"};
+const PANEL_FEATURES = {compass: "compassPanel", history: "historyPanel", spotlight: "spotlightPanel"};
 
 /** Colors of the history lines, in the order of the scales. */
 const LINE_COLORS = ["#b5512d", "#8c3e47", "#2d7753", "#9a5b13", "#4a6a8a", "#6b4f8a", "#3d7a7a", "#a0602a", "#5a5a5a"];
@@ -40,6 +42,7 @@ export class CompassWindow extends HandlebarsApplicationMixin(ApplicationV2) {
     window: {title: "STC.Title", icon: "fa-solid fa-compass", resizable: false, minimizable: false, controls: [
       {action: "newSession", icon: "fa-solid fa-rotate", label: "STC.GM.newSession"},
       {action: "lastResults", icon: "fa-solid fa-square-poll-vertical", label: "STC.GM.lastResults"},
+      {action: "openLines", icon: "fa-solid fa-ban", label: "STC.GM.lines"},
       {action: "openSettings", icon: "fa-solid fa-sliders", label: "STC.GM.settings"}
     ]},
     position: {width: 320, height: "auto"},
@@ -56,6 +59,8 @@ export class CompassWindow extends HandlebarsApplicationMixin(ApplicationV2) {
       collapse: CompassWindow.#onCollapse,
       newSession: CompassWindow.#onNewSession,
       lastResults: CompassWindow.#onLastResults,
+      openLines: CompassWindow.#onOpenLines,
+      spotMark: CompassWindow.#onSpotMark,
       openSettings: CompassWindow.#onOpenSettings
     }
   };
@@ -100,6 +105,7 @@ export class CompassWindow extends HandlebarsApplicationMixin(ApplicationV2) {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     const data = view();
+    const spot = spotlightView();
     const time = Date.now();
     context.theme = setting("theme");
     context.online = data.online;
@@ -109,9 +115,17 @@ export class CompassWindow extends HandlebarsApplicationMixin(ApplicationV2) {
     context.icons = ICONS;
     context.signals = data.signals.map(s => ({...s, label: t(`STC.Signal.${s.id}.name`), icon: ICONS[s.id],
       title: t("STC.GM.signalTitle", {signal: t(`STC.Signal.${s.id}.name`), count: s.count})}));
-    context.panels = ["scale", "compass", "history"].map(id => ({id, icon: ICONS[id], label: t(`STC.GM.view.${id}`),
-      active: this.panel === id}));
-    context.panel = {scale: this.panel === "scale", compass: this.panel === "compass", history: this.panel === "history"};
+    // The spotlight view can be switched off; the panel then falls back to the scales
+    if ( !spot && (this.panel === "spotlight") ) this.panel = "scale";
+    const ids = spot ? ["scale", "compass", "history", "spotlight"] : ["scale", "compass", "history"];
+    const asked = data.signals.find(s => s.id === "spotlight")?.count ?? 0;
+    const hint = spot?.names?.length ? t("STC.Spotlight.hint", {names: spot.names.join(", ")}) : "";
+    context.panels = ids.map(id => ({id, icon: id === "spotlight" ? ICONS.people : ICONS[id], label: t(`STC.GM.view.${id}`),
+      active: this.panel === id, alert: (id === "spotlight") && !!hint,
+      title: (id === "spotlight") && hint ? `${t("STC.GM.view.spotlight")}: ${hint}` : t(`STC.GM.view.${id}`)}));
+    context.panel = {scale: this.panel === "scale", compass: this.panel === "compass", history: this.panel === "history",
+      spotlight: this.panel === "spotlight"};
+    if ( this.panel === "spotlight" ) context.spotlight = this.#spotlightContext(spot, hint, asked);
     context.axes = data.axes.map(a => this.#axisContext(a));
     context.empty = !data.axes.some(a => a.count);
     if ( this.panel === "compass" ) context.compass = this.#compassContext(data.axes);
@@ -210,6 +224,31 @@ export class CompassWindow extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 
   /**
+   * The spotlight view: per player a soft bar and how long ago, a gentle hint for who has been quiet much longer.
+   * @param {{rows: object[]}} spotlight
+   * @param {string} hint
+   * @param {number} asked   How many players sent the anonymous "not enough spotlight" signal
+   * @returns {object}
+   */
+  #spotlightContext(spotlight, hint, asked) {
+    const ago = minutes => {
+      if ( minutes === null ) return t("STC.Spotlight.notYet");
+      const p = agePhrase(minutes);
+      if ( p.kind === "now" ) return t("STC.Spotlight.now");
+      return p.kind === "minutes" ? t("STC.Spotlight.minutes", {minutes: p.minutes})
+        : t("STC.Spotlight.hours", {hours: p.hours, minutes: p.minutes});
+    };
+    return {
+      rows: spotlight.rows.map(r => ({...r, ago: ago(r.minutes), icon: ICONS.spotlight,
+        markTitle: t("STC.Spotlight.mark", {name: r.name}),
+        title: r.character ? `${r.name}: ${r.character}` : r.name})),
+      hint,
+      asked: asked ? t("STC.Spotlight.asked", {count: asked}) : "",
+      hasRows: spotlight.rows.length > 0
+    };
+  }
+
+  /**
    * The history of the session.
    * @param {object[]} axes
    * @returns {object}
@@ -298,6 +337,15 @@ export class CompassWindow extends HandlebarsApplicationMixin(ApplicationV2) {
     const {openResults} = await import("./results-app.mjs");
     countFeature(MODULE_ID, "pastResults");
     openResults();
+  }
+
+  static async #onOpenLines() {
+    const {openLines} = await import("./lines-app.mjs");
+    openLines();
+  }
+
+  static #onSpotMark(event, target) {
+    markSpot(target.dataset.id);
   }
 
   static async #onOpenSettings() {

@@ -323,12 +323,13 @@
 }
 
 .stc .stc-axis-name {
-  width: 74px;
-  overflow: hidden;
+  flex: 0 0 auto;
+  width: 108px;
   font-size: 12px;
   font-weight: 600;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  line-height: 1.2;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .stc .stc-track {
@@ -660,7 +661,7 @@
 }
 
 .stc .stc-vote .stc-axis-name {
-  width: 96px;
+  width: 108px;
 }
 
 .stc .stc-end {

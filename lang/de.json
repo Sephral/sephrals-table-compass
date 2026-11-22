@@ -53,8 +53,8 @@
         "hint": "Ein sanfter Hinweis erscheint, wenn ein Spieler so lange still war und mindestens doppelt so lange wie die anderen."
       },
       "linesFreeText": {
-        "name": "Eigene Worte bei roten Linien und Schleiern",
-        "hint": "Spieler dürfen neben den Vorschlägen eigene rote Linien und Schleier aufschreiben."
+        "name": "Eigene Worte bei Lines und Veils",
+        "hint": "Spieler dürfen neben den Vorschlägen eigene Lines und Veils aufschreiben."
       }
     },
     "Keybinding": {
@@ -218,7 +218,7 @@
       "startRound": "Feedbackrunde",
       "closeRound": "Runde schließen ({count})",
       "online": "{count} Spieler online",
-      "lines": "Rote Linien und Schleier"
+      "lines": "Lines und Veils"
     },
     "Player": {
       "tab": {
@@ -351,7 +351,7 @@
       "Passed": "Selbsttest bestanden: {checks} Prüfungen.",
       "NewVersions": "Der Tischkompass wurde mit einer älteren Version geprüft: {versions}. Starte den Selbsttest in den Moduleinstellungen.",
       "Version": "Foundry {current} (geprüft {tested})",
-      "Lines": "Ein Testeintrag für rote Linien und Schleier hat die Prüfung nicht bestanden.",
+      "Lines": "Ein Testeintrag für Lines und Veils hat die Prüfung nicht bestanden.",
       "Spotlight": "Die Wer-war-dran-Ansicht hat im Test den stillen Spieler nicht gefunden."
     },
     "gear": "Einstellungen",
@@ -373,21 +373,21 @@
       "privacy": "Das siehst nur du. Gezählt werden Würfe, Rollenspiel-Nachrichten und Züge im Kampf, nie der Inhalt."
     },
     "Lines": {
-      "title": "Rote Linien und Schleier",
-      "open": "Rote Linien und Schleier",
+      "title": "Lines und Veils",
+      "open": "Lines und Veils",
       "introPlayer": "Anonym: Der Tisch sieht eine gemeinsame Liste, nie wer was gesetzt hat. Du kannst deine jederzeit ändern.",
       "introGM": "Eine Liste für den Tisch, ohne Namen. Neue Einträge erscheinen nach einer kurzen zufälligen Wartezeit. Deine eigenen Einträge sind als SL gekennzeichnet.",
       "line": {
-        "title": "Rote Linien",
+        "title": "Lines",
         "hint": "Kommt in diesem Spiel nie vor. Wird weder beschrieben noch gezeigt noch gespielt.",
         "placeholder": "Etwas anderes, mit deinen Worten",
-        "shared": "Rote Linien: nie"
+        "shared": "Lines: nie"
       },
       "veil": {
-        "title": "Schleier",
+        "title": "Veils",
         "hint": "Darf vorkommen, aber nur hinter den Kulissen. Die Geschichte geht weiter, nichts wird gezeigt.",
         "placeholder": "Etwas anderes, mit deinen Worten",
-        "shared": "Schleier: hinter den Kulissen"
+        "shared": "Veils: hinter den Kulissen"
       },
       "topic": {
         "violenceChildren": "Gewalt gegen Kinder",
@@ -417,7 +417,49 @@
       "invalid": "Das hat nicht geklappt.",
       "sent": "Gesetzt, ohne deinen Namen.",
       "call": "Den Tisch fragen",
-      "called": "Der Tisch wurde nach seinen roten Linien und Schleiern gefragt."
+      "called": "Der Tisch wurde nach seinen Lines und Veils gefragt."
+    },
+    "Sample": {
+      "group": {
+        "gm": "SL-Fenster",
+        "player": "Spielerfenster",
+        "round": "Szenen-Check und Feedbackrunde",
+        "lines": "Lines und Veils",
+        "question": "Rückfrage"
+      },
+      "label": {
+        "gm": "Skalen, Signale und Wünsche",
+        "gmRunning": "X-Karte, Szenen-Check und Runde laufen",
+        "gmWish": "Aktionen zu einem Wunsch",
+        "gmCompass": "Kompassrose",
+        "gmHistory": "Verlauf der Sitzung",
+        "gmSpotlight": "Rampenlicht",
+        "playerNow": "Jetzt: Signale und X-Karte",
+        "playerNoGM": "Keine SL online",
+        "playerMood": "Stimmung: die Skalen",
+        "playerWishes": "Wünsche",
+        "poll": "Szenen-Check",
+        "pollAnswered": "Szenen-Check, beantwortet",
+        "feedback": "Feedbackbogen",
+        "feedbackSent": "Feedbackbogen, abgeschickt",
+        "results": "Ergebnisse der Runden",
+        "resultsNone": "Ergebnisse, noch keine Runde",
+        "resultsJournal": "Ergebnis als Journalseite",
+        "linesPlayer": "Spieler: Lines und Veils",
+        "linesFull": "Spieler: Liste voll",
+        "linesInvalid": "Spieler: Text abgelehnt",
+        "linesGM": "SL: gemeinsame Liste und Aufruf",
+        "newSession": "Neue Sitzung beginnen"
+      },
+      "text": {
+        "rose1": "Aris letzter Stand in der Höhle war unvergesslich.",
+        "rose2": "Das Rätsel am Tor hat richtig Spaß gemacht.",
+        "thorn1": "Die lange Einkaufsszene hat sich gezogen.",
+        "bud1": "Ich will den Schmuggler wiedertreffen.",
+        "bud2": "Können wir nächstes Mal die alte Mühle erkunden?",
+        "linePets": "Leid von Haustieren",
+        "veilRomance": "Liebesszenen"
+      }
     }
   }
 }

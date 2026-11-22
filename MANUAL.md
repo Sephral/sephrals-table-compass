@@ -148,4 +148,5 @@ No names, chat messages, notes, dice results or other content of the world are s
 | `publicState()`, `myState()` | What everyone may know, what this player said |
 | `openFeedback()` | Opens the form of a running round again (player) |
 | `runSelfTest()` | The self test (GM) |
+| `samples()` | The list of sample windows: the real windows (GM window with its views, players' window, scene check, feedback form, results, lines and veils) filled with made-up votes of four players. Nothing is saved or sent, buttons that would change something do nothing. For translators and testers |
 | `saveDebugFile()` | The debug file of Sephral’s modules (GM), see [Debug file](#debug-file) |

@@ -418,6 +418,48 @@
       "sent": "Set, without your name.",
       "call": "Ask the table",
       "called": "The table was asked for its lines and veils."
+    },
+    "Sample": {
+      "group": {
+        "gm": "GM window",
+        "player": "Players window",
+        "round": "Scene check and feedback round",
+        "lines": "Lines and veils",
+        "question": "Question"
+      },
+      "label": {
+        "gm": "Scales, signals and wishes",
+        "gmRunning": "X card, scene check and round running",
+        "gmWish": "Wish actions",
+        "gmCompass": "Compass rose",
+        "gmHistory": "History of the session",
+        "gmSpotlight": "Spotlight view",
+        "playerNow": "Now: signals and X card",
+        "playerNoGM": "No GM online",
+        "playerMood": "Mood: the scales",
+        "playerWishes": "Wishes",
+        "poll": "Scene check",
+        "pollAnswered": "Scene check, answered",
+        "feedback": "Feedback form",
+        "feedbackSent": "Feedback form, sent",
+        "results": "Results of the rounds",
+        "resultsNone": "Results, no round yet",
+        "resultsJournal": "Result as journal page",
+        "linesPlayer": "Player: lines and veils",
+        "linesFull": "Player: list full",
+        "linesInvalid": "Player: text refused",
+        "linesGM": "GM: shared list and call",
+        "newSession": "Start a new session"
+      },
+      "text": {
+        "rose1": "Ari's last stand in the cave was unforgettable.",
+        "rose2": "The riddle at the gate was great fun.",
+        "thorn1": "The long shopping scene dragged on.",
+        "bud1": "I want to meet the smuggler again.",
+        "bud2": "Can we explore the old mill next time?",
+        "linePets": "Harm to pets",
+        "veilRomance": "Romance scenes"
+      }
     }
   }
 }

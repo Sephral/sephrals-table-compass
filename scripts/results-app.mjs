@@ -29,6 +29,9 @@ export class FeedbackResults extends HandlebarsApplicationMixin(ApplicationV2) {
   /** The id of the result shown; the newest by default. */
   resultId = null;
 
+  /** Sample windows read what they show from here (see sample-windows.mjs) instead of from the live state. */
+  src = null;
+
   /** @override */
   get title() {
     return t("STC.Results.title");
@@ -39,14 +42,14 @@ export class FeedbackResults extends HandlebarsApplicationMixin(ApplicationV2) {
    * @returns {object|null}
    */
   get result() {
-    const list = results();
+    const list = this.src ? this.src.results() : results();
     return list.find(r => r.id === this.resultId) ?? list.at(-1) ?? null;
   }
 
   /** @override */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
-    const list = results();
+    const list = this.src ? this.src.results() : results();
     const r = this.result;
     context.choices = list.map(x => ({id: x.id, label: dateLabel(x.closed), selected: x.id === r?.id})).reverse();
     context.result = r ? describe(r) : null;
@@ -79,7 +82,7 @@ export class FeedbackResults extends HandlebarsApplicationMixin(ApplicationV2) {
  * @param {number} ms
  * @returns {string}
  */
-function dateLabel(ms) {
+export function dateLabel(ms) {
   return new Date(ms).toLocaleString(locale(), {dateStyle: "medium", timeStyle: "short"});
 }
 
@@ -88,7 +91,7 @@ function dateLabel(ms) {
  * @param {object} r
  * @returns {object}
  */
-function describe(r) {
+export function describe(r) {
   const max = Math.max(r.count, 1);
   const bar = count => Math.round((count / max) * 100);
   const topics = counts => TOPICS.filter(id => counts?.[id]).map(id => ({label: t(`STC.Topic.${id}`), count: counts[id], width: bar(counts[id])}))
@@ -143,7 +146,7 @@ export async function saveToJournal(r) {
  * @param {object} d   A described result
  * @returns {string}
  */
-function resultHtml(d) {
+export function resultHtml(d) {
   const parts = [`<p>${esc(t("STC.Results.answers", {count: d.count, online: d.online}))}</p>`];
   if ( !d.shown ) return `${parts.join("")}<p>${esc(d.few)}</p>`;
   if ( d.stars ) parts.push(`<h3>${esc(t("STC.Results.evening"))}</h3><p>${esc(t("STC.Results.starsLine", {avg: d.stars.avg}))}</p>`);

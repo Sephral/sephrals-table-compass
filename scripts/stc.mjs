@@ -13,6 +13,7 @@ import {myState, onMineChange, resendAll} from "./player.mjs";
 import {openPlayerCompass, refreshPlayerCompass} from "./player-app.mjs";
 import {syncPoll} from "./poll-app.mjs";
 import {openResults} from "./results-app.mjs";
+import {sampleWindows} from "./sample-windows.mjs";
 import {noticeNewVersions, runSelfTest} from "./selftest.mjs";
 import {changeLanguage, registerSettings} from "./settings.mjs";
 import {choices, publicState} from "./state.mjs";
@@ -97,6 +98,8 @@ Hooks.once("init", () => {
     openFeedback,
     /** What the active GM holds, without tokens, for tests. */
     debugState: tracker.debugState,
+    /** The windows filled with made-up votes, nothing saved (translators, testing; see samples.mjs). */
+    samples: sampleWindows,
     /** Check the module (GM). */
     runSelfTest,
     /** Save the debug file of Sephral's modules (GM): about one chat message, or without an id the latest picture. */

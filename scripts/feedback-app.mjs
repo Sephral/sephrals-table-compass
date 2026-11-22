@@ -46,6 +46,9 @@ export class FeedbackForm extends HandlebarsApplicationMixin(ApplicationV2) {
   /** Whether the answers of this round were sent and the form shows the thanks. */
   sent = false;
 
+  /** Sample windows read what they show from here (see sample-windows.mjs) instead of from the live state. */
+  src = null;
+
   /** @override */
   get title() {
     return t("STC.Feedback.title");
@@ -54,10 +57,10 @@ export class FeedbackForm extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @override */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
-    const round = publicState().round;
+    const round = this.src ? this.src.round : publicState().round;
     if ( round && (round.id !== this.round) ) {
       this.round = round.id;
-      const earlier = myState().rounds[round.id];
+      const earlier = this.src ? this.src.earlier : myState().rounds[round.id];
       this.draft = cleanAnswers(earlier?.answers ?? {});
       this.sent = !!earlier;
     }

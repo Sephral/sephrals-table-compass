@@ -76,6 +76,9 @@ export class CompassWindow extends HandlebarsApplicationMixin(ApplicationV2) {
   /** The wish whose actions are open. */
   wishMenu = null;
 
+  /** Sample windows read what they show from here (see sample-windows.mjs) instead of from the live state. */
+  src = null;
+
   /** Ticks while a scene check runs. */
   #ticker = null;
 
@@ -104,8 +107,8 @@ export class CompassWindow extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @override */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
-    const data = view();
-    const spot = spotlightView();
+    const data = this.src ? this.src.view() : view();
+    const spot = this.src ? this.src.spotlight() : spotlightView();
     const time = Date.now();
     context.theme = setting("theme");
     context.online = data.online;
@@ -141,7 +144,7 @@ export class CompassWindow extends HandlebarsApplicationMixin(ApplicationV2) {
     context.lastPoll = last ? {shown: last.shown, count: last.count,
       text: last.shown ? t("STC.GM.pollResult", {avg: decimal(last.avg), count: last.count}) : t("STC.GM.pollFew", {count: last.count})} : null;
     context.round = data.round;
-    context.isActiveGM = game.user.isActiveGM;
+    context.isActiveGM = !!this.src || game.user.isActiveGM;
     this.#tick(!!data.poll);
     return context;
   }
@@ -254,7 +257,7 @@ export class CompassWindow extends HandlebarsApplicationMixin(ApplicationV2) {
    * @returns {object}
    */
   #historyContext(axes) {
-    const h = history();
+    const h = this.src ? this.src.history() : history();
     const time = Date.now();
     const from = h.points[0]?.t ?? (publicState().session?.started ?? time - 3600 * 1000);
     const box = {from, to: time, width: 282, height: 110};
@@ -273,7 +276,7 @@ export class CompassWindow extends HandlebarsApplicationMixin(ApplicationV2) {
 
   static #onView(event, target) {
     const feature = PANEL_FEATURES[target.dataset.view];
-    if ( feature && (target.dataset.view !== this.panel) ) countFeature(MODULE_ID, feature);
+    if ( feature && (target.dataset.view !== this.panel) && !this.src ) countFeature(MODULE_ID, feature);
     this.panel = target.dataset.view;
     this.render();
   }

@@ -11,6 +11,7 @@ import {MODULE_ID, TEMPLATES, addSettingsGear, isShown, setting, t} from "./conf
 import {addGMItem, myLines, removeGMItem, sharedItems, toggleOwn} from "./lines.mjs";
 import {LV_KINDS, LV_MAX_OWN, LV_TEXT_LIMIT, itemKey} from "./lines-rules.mjs";
 import {callLines} from "./tracker.mjs";
+import {sampleBlocked} from "./samples.mjs";
 import {countFeature, markUsed} from "./usage.mjs";
 
 export class LinesWindow extends HandlebarsApplicationMixin(ApplicationV2) {
@@ -43,6 +44,9 @@ export class LinesWindow extends HandlebarsApplicationMixin(ApplicationV2) {
   /** The line under the title after the last action. */
   toast = "";
 
+  /** Sample windows read what they show from here (see sample-windows.mjs) instead of from the live state. */
+  src = null;
+
   /** @override */
   get title() {
     return t("STC.Lines.title");
@@ -58,9 +62,9 @@ export class LinesWindow extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @override */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
-    const gm = game.user.isGM;
-    const shared = sharedItems();
-    const own = gm ? shared.filter(i => i.gm) : Object.values(myLines().entries);
+    const gm = this.src ? this.src.isGM : game.user.isGM;
+    const shared = this.src ? this.src.shared : sharedItems();
+    const own = gm ? shared.filter(i => i.gm) : Object.values(this.src ? this.src.own : myLines().entries);
     const ownKeys = new Set(own.map(itemKey));
     const freeText = setting("linesFreeText") !== false;
     context.icons = ICONS;
@@ -79,10 +83,10 @@ export class LinesWindow extends HandlebarsApplicationMixin(ApplicationV2) {
       items: shared.filter(i => i.kind === kind).map(i => ({label: i.topic ? t(`STC.Lines.topic.${i.topic}`) : i.text, gm: !!i.gm}))
     }));
     context.sharedEmpty = !shared.length;
-    context.full = !gm && (Object.keys(myLines().entries).length >= LV_MAX_OWN);
+    context.full = !gm && (Object.keys(this.src ? this.src.own : myLines().entries).length >= LV_MAX_OWN);
     context.fullText = t("STC.Lines.full", {max: LV_MAX_OWN});
     context.toast = this.toast ? t(this.toast) : "";
-    context.noGM = !game.user.isGM && !game.users.activeGM;
+    context.noGM = this.src ? !!this.src.noGM : (!game.user.isGM && !game.users.activeGM);
     return context;
   }
 
@@ -111,6 +115,7 @@ export class LinesWindow extends HandlebarsApplicationMixin(ApplicationV2) {
    * @param {boolean} [forceOff]   Take it back whatever its state
    */
   async #change(value, forceOff=false) {
+    if ( this.src ) return sampleBlocked();
     if ( game.user.isGM ) {
       const key = itemKey(value);
       const on = sharedItems().some(i => i.gm && (itemKey(i) === key));

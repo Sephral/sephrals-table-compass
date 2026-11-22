@@ -42,6 +42,9 @@ export class PlayerCompass extends HandlebarsApplicationMixin(ApplicationV2) {
   /** The line under the tabs after the last action. */
   toast = "";
 
+  /** Sample windows read what they show from here (see sample-windows.mjs) instead of from the live state. */
+  src = null;
+
   /** @override */
   get title() {
     return t("STC.Title");
@@ -50,15 +53,15 @@ export class PlayerCompass extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @override */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
-    const state = myState();
-    const pub = publicState();
-    const chosen = choices();
+    const state = this.src ? this.src.state : myState();
+    const pub = this.src ? this.src.pub : publicState();
+    const chosen = this.src ? this.src.choices : choices();
     context.icons = ICONS;
     context.tabs = ["now", "mood", "wish"].map(id => ({id, label: t(`STC.Player.tab.${id}`), active: this.tab === id}));
     context.tab = {now: this.tab === "now", mood: this.tab === "mood", wish: this.tab === "wish"};
     context.signals = chosen.signals.map(id => ({id, label: t(`STC.Signal.${id}.name`), icon: ICONS[id],
       on: signalActive(id, state.signals[id])}));
-    const waiting = xcardWaiting();
+    const waiting = this.src ? this.src.waiting : xcardWaiting();
     context.xcard = {waiting, label: t(waiting ? "STC.XCard.waiting" : "STC.XCard.button")};
     context.axes = chosen.axes.map(id => {
       const entry = axisActive(state.axes[id]) ? state.axes[id] : null;
@@ -78,8 +81,9 @@ export class PlayerCompass extends HandlebarsApplicationMixin(ApplicationV2) {
         title: soon ? t("STC.Player.wishSoon", {wish: t(`STC.Wish.${id}`)}) : t(`STC.Wish.${id}`)};
     });
     context.round = pub.round ? {label: t(state.rounds[pub.round.id] ? "STC.Player.roundChange" : "STC.Player.roundOpen")} : null;
-    const players = onlinePlayers().length;
-    context.warning = !game.users.activeGM ? t("STC.Player.noGM") : (players <= 1 ? t("STC.Player.single") : "");
+    const players = this.src ? this.src.players : onlinePlayers().length;
+    const gm = this.src ? this.src.gm : game.users.activeGM;
+    context.warning = !gm ? t("STC.Player.noGM") : (players <= 1 ? t("STC.Player.single") : "");
     context.toast = this.toast ? t(this.toast) : "";
     return context;
   }

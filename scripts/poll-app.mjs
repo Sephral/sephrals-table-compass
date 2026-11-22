@@ -27,6 +27,9 @@ export class ScenePoll extends HandlebarsApplicationMixin(ApplicationV2) {
 
   #ticker = null;
 
+  /** Sample windows read what they show from here (see sample-windows.mjs) instead of from the live state. */
+  src = null;
+
   /** @override */
   get title() {
     return t("STC.Poll.title");
@@ -35,9 +38,9 @@ export class ScenePoll extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @override */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
-    const poll = publicState().poll;
-    const answer = poll ? myState().polls[poll.id]?.value : null;
-    const left = poll ? secondsLeft(poll) : 0;
+    const poll = this.src ? this.src.poll : publicState().poll;
+    const answer = poll ? (this.src ? this.src.answer : myState().polls[poll.id]?.value) : null;
+    const left = poll ? (this.src ? this.src.left : secondsLeft(poll)) : 0;
     context.left = left;
     context.progress = poll ? Math.min(100, Math.max(0, (left / (poll.seconds ?? POLL_SECONDS)) * 100)) : 0;
     context.faces = FACES.map(face => ({face, label: t(`STC.Poll.face.${face}`), mouth: FACE_MOUTHS[face], on: answer === face}));
@@ -55,7 +58,7 @@ export class ScenePoll extends HandlebarsApplicationMixin(ApplicationV2) {
   _onRender(context, options) {
     super._onRender(context, options);
     this.element.dataset.stcTheme = setting("theme");
-    if ( !this.#ticker ) this.#ticker = setInterval(() => {
+    if ( !this.#ticker && !this.src ) this.#ticker = setInterval(() => {
       const poll = publicState().poll;
       if ( !poll || (secondsLeft(poll) <= 0) ) this.close();
       else this.render({parts: ["body"]});
